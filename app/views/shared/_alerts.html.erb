@@ -1,2 +1,35 @@
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<div class="container mx-auto p-3">
+  <% if notice.present? %>
+    <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-lime-500">
+      <div class="text-xl inline-block mr-5 align-middle">
+        <p class="notice">
+          <i class="fas fa-bell"></i>  <%= notice %>
+        </p>
+      </div>
+      <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="closeAlert(event)">
+        <span>×</span>
+      </button>
+    </div>
+  <% elsif alert.present? %>
+    <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
+      <div class="text-xl inline-block mr-5 align-middle">
+        <p class="alert">
+          <i class="fas fa-bell"></i>  <%= alert %>
+        </p>
+      </div>
+      <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="closeAlert(event)">
+        <span>×</span>
+      </button>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function closeAlert(event){
+    let element = event.target;
+    while(element.nodeName !== "BUTTON"){
+      element = element.parentNode;
+    }
+    element.parentNode.parentNode.removeChild(element.parentNode);
+  }
+</script>
