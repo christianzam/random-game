@@ -2,7 +2,9 @@
   <a class="text-3xl font-bold leading-none" href="/">
     <div class="flex flex-wrap justify-center">
       <div class="w-6/12 sm:w-4/12">
-        <%= image_tag "https://placeimg.com/128/128/people?q=2", class: "shadow rounded-full max-w-full h-auto align-middle border-none" %>
+        <% unless current_page?(controller: 'pages', action: 'home') %>
+          <i class="fa-solid fa-house" style="color:rgb(127 29 29);"></i>
+        <% end %>
       </div>
     </div>
   </a>
@@ -32,11 +34,11 @@
     </li>
     <li><a class="text-sm text-gray-400 hover:text-gray-500" href="https://www.handshq.com/">About</a></li>
   </ul>
-  <% if current_user %>
-    <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" %>
+  <% if signed_in? %>
+    <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-red-900 hover:bg-red-700 text-sm text-white font-bold  rounded transition duration-200" %>
   <% else %>
-    <%= link_to 'Sign in', new_user_session_path, class: "hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" %>
-    <%= link_to 'Sign up', new_user_registration_path, class: "hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" %>
+    <%= button_to 'Sign in', new_user_session_path, class: "hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" %>
+    <%= button_to 'Sign up', new_user_registration_path, class: "hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" %>
   <% end %>
 </nav>
 
@@ -44,10 +46,12 @@
   <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
   <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
     <div class="flex items-center mb-8">
-      <a class="mr-auto text-3xl font-bold leading-none" href="#">
+      <a class="mr-auto text-3xl font-bold leading-none" href="/">
         <div class="flex flex-wrap justify-center">
           <div class="w-6/12 sm:w-4/12">
-            <%= image_tag "https://placeimg.com/128/128/people?q=2", class: "shadow rounded-full max-w-full h-auto align-middle border-none" %>
+            <% unless current_page?(controller: 'pages', action: 'home') %>
+              <i class="fa-solid fa-house" style="color:rgb(127 29 29);"></i>
+            <% end %>
           </div>
         </div>        
       </a>
@@ -79,10 +83,10 @@
     <div class="mt-auto">
       <div class="pt-6">
         <% if current_user%>
-          <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" %>
+          <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" %>
         <% else %>
-          <%= link_to 'Sign in', new_user_session_path, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" %>
-          <%= link_to 'Sign up', new_user_registration_path, class: "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl" %>
+          <%= button_to 'Sign in', new_user_session_path, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" %>
+          <%= buttton_to 'Sign up', new_user_registration_path, class: "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl" %>
         <% end %>
       </div>
       <p class="my-4 text-xs text-center text-gray-400">
