@@ -18,7 +18,8 @@ if Rails.env.development?
   Member.destroy_all
   User.destroy_all
   Gift.destroy_all
-  u = User.create!(password:'kiwi123', email: 'chris@mail.com', admin: true)
+
+  chris = User.create!(password:'kiwi123', email: 'chris@mail.com', name: 'Christian', admin: true)
 
   (1..3).each do |i|
     user = User.create_with(
@@ -32,12 +33,12 @@ if Rails.env.development?
   end
 
   3.times do
-    user = User.all.sample
+    u = User.all.sample
     Member.create!(
       email: "#{Faker::Name.first_name}@seed.com",
       nickname: Faker::Fantasy::Tolkien.character,
-      give_to: user.name,
-      user_id: user.id
+      give_to: u.name,
+      user_id: u.id
     )
   end
 
