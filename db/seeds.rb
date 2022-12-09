@@ -30,15 +30,12 @@ if Rails.env.development?
       nick_name: Faker::Fantasy::Tolkien.character,
       interest: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
     ).find_or_create_by!(email: "#{Faker::Name.first_name}@mail.com")
-  end
 
-  3.times do
-    u = User.all.sample
     Member.create!(
       email: "#{Faker::Name.first_name}@seed.com",
       nickname: Faker::Fantasy::Tolkien.character,
-      give_to: u.name,
-      user_id: u.id
+      give_to: user.name,
+      user_id: user.id
     )
   end
 
