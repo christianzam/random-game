@@ -1,6 +1,6 @@
 class Member < ApplicationRecord
   belongs_to :user, optional: true
-  validates :user, uniqueness: true
+  validates :user, uniqueness: true, allow_blank: true
 
   validates :email, presence: true
   validates :email, uniqueness: true
