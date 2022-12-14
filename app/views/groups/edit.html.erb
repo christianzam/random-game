@@ -1,0 +1,21 @@
+<div class="container flex flex-wrap justify-center items-center">
+  <div class="bg-green-900 card card w-1/3 h-auto bg-white shadow pt-3">
+    <div class="text-white text-center text-xl mb-2"> 
+      <p>Add a Secret Santa</p>
+      <p>to group</p>
+      <p><%= @group.name&.capitalize %></p>
+    </div>
+    <%= form_with(model: @group, class: "contents") do |form| %>
+      <div class="bg-red-900 container justify-center items-center p-5">
+        <div>
+          <%= form.text_field :members, size: 50,
+            class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" 
+          %>
+        </div>
+        <div class="my-5">
+          <%= form.submit 'Add', class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium cursor-pointer" %>
+        </div>
+      </div>
+    <% end %>    
+  </div>
+</div>

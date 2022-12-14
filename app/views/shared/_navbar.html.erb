@@ -16,7 +16,9 @@
     </button>
   </div>
   <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
-    <li><a class="text-sm text-gray-400 hover:text-gray-500" href="#">Group details</a></li>
+    <li>
+      <%= link_to 'Groups', groups_path, class: "text-sm text-blue-600 font-bold" %>
+    </li>
     <li class="text-gray-300">
       |
     </li>
@@ -67,7 +69,7 @@
     <div>
       <ul>
         <li class="mb-1">
-          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Group details</a>
+          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Groups</a>
         </li>
         <li class="mb-1">
           <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Secret Santas</a>
