@@ -1,22 +1,44 @@
-<div class="container flex flex-wrap justify-center items-center">
-  <% @groups.each do |group| %>    
-    <div class="card card w-1/3 h-auto bg-white shadow pt-3 m-4">
-      <div class="text-center text-xl mb-2"><%= group.name&.capitalize %> group</div>
-      <div class="px-6 py-6 pb-0">
-        <%= image_tag "https://placeimg.com/128/128/people?q=1", class:"rounded-full mx-auto block mb-3 -mt-6 shadow-md", alt: "people" %>
-      </div>
-      <div class="bg-red-900 py-3">
-        <div class="text-center text-white text-xl"> Members: </div>
-        <div class="text-center text-white text-med mt-3">
-          <%= names(group) %>
-        </div>
-      </div>
-      <% if action_name != "show" %>
-        <div class="bg-green-900 text-center p-5">
-          <%= link_to 'Add a Santa', edit_group_path(group), class: "bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" %>
-          <%= link_to 'Details', group_path(group), class: "bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" %>
-        </div>
-      <% end %>
+<% if @groups.any? %>
+  <div class="flex justify-end px-3">
+    <div>
+      <%= link_to 'Create a Group', new_group_path, class: "bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"%>
     </div>
-  <% end %>
-</div>
+  </div>
+  <div class="container flex flex-wrap justify-center items-center">
+    <% @groups.each do |group| %>    
+      <div class="card card w-1/3 h-auto bg-white shadow pt-3 m-4">
+        <div class="text-center text-xl mb-2"><%= group.name&.capitalize %> group</div>
+        <div class="px-6 py-6 pb-0">
+          <%= image_tag "people.png", class:"border-4 border-black-500 mx-auto block mb-3 -mt-6 shadow-md", style:'width:200px;height:150px;', alt: "people" %>
+        </div>
+        <div class="bg-red-900 py-3">
+          <% unless group.members.empty? %>
+            <div class="text-center text-white text-xl"> Santas: </div>
+          <% end %>
+          <div class="text-center text-white text-med mt-3">
+            <%= names(group) %>
+          </div>
+        </div>
+        <% if action_name != "show" %>
+          <div class="bg-green-900 text-center p-5">
+            <%= link_to 'Add a Santa', edit_group_path(group), class: "bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" %>
+            <%= link_to 'Details', group_path(group), class: "bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="container flex flex-wrap justify-center items-center">
+    <div class="card card w-1/3 h-auto bg-red-900 shadow pt-3 m-4 rounded">
+      <div class="text-center text-white text-xl mb-2">
+        <p>NO GROUPS YET!</p>
+      </div>
+      <div class="bg-green-900 py-3">
+        <div class="text-center text-xl mb-2">
+          <%= link_to 'Create a Group', new_group_path, class: "bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

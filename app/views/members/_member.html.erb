@@ -9,8 +9,8 @@
               <div class="text-center text-xl mb-2"><%= member.nickname %></div>
               <div class="text-center text-grey-light mb-6"><%= member.email %></div>
               <div class="text-center text-grey-darker mb-4">
-                <span class="text-grey-light px-1">&bullet;</span><%= member.interests["activity"] %>
-                <span class="text-grey-light px-1">&bullet;</span><%= member.interests["activity_2"] %>
+                <span class="text-grey-light px-1">&bullet;</span><%= member.interests["activity"] unless member.interests.nil?%>
+                <span class="text-grey-light px-1">&bullet;</span><%= member.interests["activity_2"] unless member.interests.nil?%>
               </div>
               <% if action_name != "show" %>
                 <div class="text-center text-grey-darker mb-4">

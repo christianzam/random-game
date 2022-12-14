@@ -1,4 +1,6 @@
 class Member < ApplicationRecord
+  # serialize :interests, Hash
+
   belongs_to :user, optional: true
   validates :user, uniqueness: true, allow_blank: true
 

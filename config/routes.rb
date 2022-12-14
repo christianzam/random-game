@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :gifts
   resources :members
   resources :groups
+  get 'draws/:id', to: 'draws#show'
+  post 'draws', to: 'draws#update'
 end

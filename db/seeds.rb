@@ -33,8 +33,8 @@ if Rails.env.development?
     ).find_or_create_by!(email: "#{Faker::Name.first_name}@mail.com")
 
     Member.create!(
-      email: "#{Faker::Name.first_name}@seed.com",
-      nickname: "#{Faker::Fantasy::Tolkien.character}",
+      email: "#{Faker::Fantasy::Tolkien.character}@seed.com",
+      nickname: "#{Faker::Name.first_name}",
       interests: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
     )
   end
