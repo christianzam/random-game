@@ -15,9 +15,10 @@ if Rails.env.development?
   puts 'Seeds starting...'
   puts 'Destroying previous objects...'
 
-  Member.destroy_all
   User.destroy_all
+  Member.destroy_all
   Gift.destroy_all
+  Group.destroy_all
 
   chris = User.create!(password:'kiwi123', email: 'chris@mail.com', name: 'Christian', admin: true)
 
@@ -32,10 +33,9 @@ if Rails.env.development?
     ).find_or_create_by!(email: "#{Faker::Name.first_name}@mail.com")
 
     Member.create!(
-      email: "#{Faker::Name.first_name}@seed.com",
-      nickname: Faker::Fantasy::Tolkien.character,
-      give_to: user.name,
-      user_id: user.id
+      email: "#{Faker::Fantasy::Tolkien.character}@seed.com",
+      nickname: "#{Faker::Name.first_name}",
+      interests: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
     )
   end
 
@@ -46,6 +46,13 @@ if Rails.env.development?
       price: Faker::Commerce.price
     )
   end
+
+  names = Member.all.collect{|m| m.nickname}
+
+  Group.create!(
+    name: 'Office',
+    members: names.flatten
+  )
 
   puts 'seed file ran succesfully!, bye'
 end

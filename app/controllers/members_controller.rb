@@ -1,4 +1,5 @@
 class MembersController < ApplicationController
+  require 'json'
   before_action :set_member, only: %i[ show edit update destroy ]
 
   # GET /members or /members.json
@@ -21,7 +22,13 @@ class MembersController < ApplicationController
 
   # POST /members or /members.json
   def create
-    @member = Member.new(member_params)
+    # @member = Member.new(member_params)  
+
+    @member = Member.create!(
+      email: member_params["email"],
+      nickname: member_params["nickname"],
+      interests: { activity: member_params["interests"], activity_2: member_params["hobbies"] }
+    )
 
     respond_to do |format|
       if @member.save
@@ -65,6 +72,6 @@ class MembersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def member_params
-      params.require(:member).permit(:email, :nickname, :give_to, :user_id)
+      params.require(:member).permit(:email, :nickname, :give_to, :user_id, :hobbies, :interests, interests: {})
     end
 end

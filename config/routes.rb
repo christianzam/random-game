@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :gifts
-  resources :members
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -8,5 +6,9 @@ Rails.application.routes.draw do
 
   root to: 'pages#landing'
   get 'pages/home', to: 'pages#home'
-  # resources :gifts
+  resources :gifts
+  resources :members
+  resources :groups
+  get 'draws/:id', to: 'draws#show'
+  post 'draws', to: 'draws#update'
 end
