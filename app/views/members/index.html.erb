@@ -1,0 +1,13 @@
+<div class="w-full">
+  <% if current_user.admin %>
+    <div class="flex justify-end px-3">
+      <div>
+        <%= link_to 'New Santa', new_member_path, class: "rounded-lg py-3 px-5 bg-red-900 text-white block font-medium" %>
+      </div>
+    </div>  
+  <% end %>
+
+  <div id="members" class="min-w-full">
+    <%= render @members %>
+  </div>
+</div>
