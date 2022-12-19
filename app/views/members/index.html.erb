@@ -6,8 +6,11 @@
       </div>
     </div>  
   <% end %>
-
-  <div id="members" class="min-w-full">
-    <%= render @members %>
-  </div>
+  <% if @members.any? %>
+    <div id="members" class="container flex flex-wrap justify-center items-center">
+      <%= render @members %>
+    </div>
+  <% end %>
 </div>
+
+

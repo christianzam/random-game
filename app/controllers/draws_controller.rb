@@ -4,6 +4,7 @@ class DrawsController < ApplicationController
   
   def show
     @result = start_draw(@draw_id)
+    update_giving_to
   end
 
   def update

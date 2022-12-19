@@ -8,11 +8,11 @@ module DrawsHelper
     result.each_with_index do |pair, idx|
       data << tag.li(class:"list-none my-5") do
         content = ''
-        content << tag.span(class:"text-center text-white text-xl") do "#{idx + 1}#{(idx + 1).ordinal} pair" end
+        content << tag.span(class:"text-center text-white text-xl") do "#{idx + 1}#{(idx + 1).ordinal} 🎅 pair" end
         content << tag.br
         content << tag.br
         content << tag.span(class:"text-center text-white text-xl") do
-           "#{pair.first.upcase} Secret 🎅 is.... #{pair.second.upcase}!" 
+           "#{pair.first.upcase}.... is giving to.... #{pair.second.upcase}!!" 
         end
         content << tag.br
         content << tag.hr(class:"border-4 border-red-700")
