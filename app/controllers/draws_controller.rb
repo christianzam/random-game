@@ -1,5 +1,6 @@
 class DrawsController < ApplicationController
-  before_action :set_draw, only: %i[ show ]
+  before_action :set_draw, only: :show 
+  after_action :update_group, only: :show 
   include DrawsConcern
   
   def show
@@ -14,5 +15,9 @@ class DrawsController < ApplicationController
   private
   def set_draw
     @draw_id = params[:id]
+  end
+
+  def update_group
+    Group.find_by(id: params[:id]).update(draw_performed: true)
   end
 end
