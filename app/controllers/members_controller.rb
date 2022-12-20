@@ -22,14 +22,11 @@ class MembersController < ApplicationController
 
   # POST /members or /members.json
   def create
-    # @member = Member.new(member_params)  
-
     @member = Member.create!(
       email: member_params["email"],
       nickname: member_params["nickname"],
       interests: { activity: member_params["interests"], activity_2: member_params["hobbies"] }
     )
-
     respond_to do |format|
       if @member.save
         format.html { redirect_to member_url(@member), notice: "Member was successfully created." }

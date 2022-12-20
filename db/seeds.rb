@@ -31,10 +31,14 @@ if Rails.env.development?
       nick_name: Faker::Fantasy::Tolkien.character,
       interest: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
     ).find_or_create_by!(email: "#{Faker::Name.first_name}@mail.com")
+  end
+
+  (1..6).each do |i|
+    faker_name = Faker::Name.first_name
 
     Member.create!(
-      email: "#{Faker::Fantasy::Tolkien.character}@seed.com",
-      nickname: "#{Faker::Name.first_name}",
+      email: "#{faker_name}#{i+i}@seed.com",
+      nickname: "#{faker_name}",
       interests: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
     )
   end
@@ -54,5 +58,6 @@ if Rails.env.development?
     members: names.flatten
   )
 
+  Member.all.update(group_id: Group.last.id)
   puts 'seed file ran succesfully!, bye'
 end

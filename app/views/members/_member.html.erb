@@ -1,28 +1,27 @@
 <div id="<%= dom_id member %>">
-  <div class="m-5 max-w-sm">
-    <div class="container mx-auto">
-      <div class="flex">
-        <div class="flex-1">
-          <div class="bg-white shadow m-8">
-            <div class="px-6 py-6 pb-0 border-t-4 border-green">
-              <%= image_tag "https://placeimg.com/128/128/people?q=1", class:"rounded-full mx-auto block mb-3 -mt-6 shadow-md", alt: "people" %>
-              <div class="text-center text-xl mb-2"><%= member.nickname %></div>
-              <div class="text-center text-grey-light mb-6"><%= member.email %></div>
-              <div class="text-center text-grey-darker mb-4">
-                <span class="text-grey-light px-1">&bullet;</span><%= member.interests["activity"] unless member.interests.nil?%>
-                <span class="text-grey-light px-1">&bullet;</span><%= member.interests["activity_2"] unless member.interests.nil?%>
-              </div>
-              <% if action_name != "show" %>
-                <div class="text-center text-grey-darker mb-4">
-                  <span><%= link_to "View Profile", member, class: "font-semibold uppercase hover:bg-grey hover:text-grey no-underline text-grey-darkest py-4" %></span>
-                  <span class="mx-5"></span>
-                  <span><%= link_to 'Edit Member', edit_member_path(member), class: "font-semibold uppercase hover:bg-green hover:text-black no-underline text-grey-darkest py-4" %></span>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
+  <div class="card h-auto bg-green-900 pt-3 m-4">
+    <div class="px-6 py-6 pb-0">
+      <%= image_tag "https://placeimg.com/128/128/people?q=1", class:"rounded-full mx-auto block mb-3 -mt-6 shadow-md", alt: "people" %>
+    </div>
+
+    <div class="bg-red-900 pt-3">
+      <div class="text-center text-white text-xl mb-2"><%= member.nickname %></div>
+      <div class="text-center text-white"><%= member.email %></div>
+      <hr class="my-2 mx-auto w-48 h-1 bg-gray-100 rounded border-0 md:my-5 dark:bg-gray-700">
+      <div class="text-center mb-4">
+        <div class="text-center text-white mb-4">Interests:</div>
+        <span class="text-white px-1">&bullet; <%= member.interests["activity"] unless member.interests.nil?%></span>
+        <span class="text-white px-1">&bullet; <%= member.interests["activity_2"] unless member.interests.nil?%></span>
       </div>
+    </div>
+    <% if action_name != "show" %>
+      <div class="bg-green-900 text-center px-1">
+        <%= link_to "View Profile", member, class: "bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" %>
+        <%= link_to 'Edit Member', edit_member_path(member), class: "bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" %>
+      </div>
+    <% end %>
+    <div class="bg-green-900">
+      <hr class="my-2 mx-auto w-48 h-1 bg-green-900 rounded border-0 md:my-5 dark:bg-green-900">
     </div>
   </div>
 </div>
