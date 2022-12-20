@@ -4,7 +4,7 @@ module MembersHelper
 
     if Member.where(give_to: nil, group_id: group_id).empty?
       date_time = Member.where.not(give_to: nil, group_id: group_id).last.updated_at
-      return "Draw completed at #{date_time.strftime("%d/%b/%y %H:%Mhrs")}"
+      return "Draw completed #{date_time.strftime("%d/%b/%y %H:%Mhrs")}"
     end
     
     data = []

@@ -1,13 +1,11 @@
-<div class="container flex flex-wrap justify-center items-center">
-  <div class="py-3">
-    <% if @group.members.size > 2 %>
-      <%= draw_btn(@group.id) %>
-    <% end %>
-  </div>
+<div class="container flex justify-center items-center mb-5">
+   <%= draw_titles(@group.id) %>
 </div>
+
 <div class="container flex flex-wrap justify-center items-center">
-  <div class="card card w-1/3 h-auto bg-white shadow pt-3">
-    <div class="text-center text-xl mb-2"><%= @group.name&.capitalize %> group</div>
+  <div class="card w-1/3 h-auto bg-white shadow pt-3">
+    <div class="text-center text-red-900 text-xl mb-2"><%= @group.name&.capitalize %> group</div>
+    <div class="text-center mb-2"><%= draw_btn(@group.id) if @group.ready_for_draw? %></div>
     <div class="px-6 py-6 pb-0">
       <%= image_tag "people.png", class:"border-4 border-black-500 mx-auto block mb-3 -mt-6 shadow-md", style:'width:200px;height:150px;', alt: "people" %>
     </div>
@@ -28,9 +26,9 @@
       </div>
     </div>
   </div>
-  <div class="bg-green-900 card rounded-full w-1/3 h-auto bg-white shadow pt-3 mx-3">
+  <div class="bg-green-900 card rounded-full w-1/3 h-auto shadow pt-3 mx-3">
     <div class="text-white text-center text-xl mb-2"> 
-      <p><%= draw_titles(@group.id) %></p>
+      <p>Santas</p>
     </div>
     
     <div class="bg-red-900 container justify-center items-center p-5">

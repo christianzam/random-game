@@ -23,11 +23,15 @@ module DrawsHelper
   end
 
   def draw_titles(group_id)
-    nicknames = Member.where(give_to: nil, group_id: group_id).map{ |member| member.nickname}
+    nicknames = Group.find_by(id: group_id).members
     return if nicknames.empty?
-    
-    return "#{nicknames.size} Santa left" if nicknames.size == 1
-    return "#{nicknames.size} Santas left" if nicknames.size > 2
+
+    data = []
+    data << tag.div(class: "text-center text-red-900", style:"font-size:xx-large;" ) do 
+      nicknames.size >= 2 ? "#{nicknames.size} Santas ready for draw" : "Only #{nicknames.first} for a draw 🙁" 
+    end
+
+    safe_join(data)
   end
 
   def draw_btn(group_id)

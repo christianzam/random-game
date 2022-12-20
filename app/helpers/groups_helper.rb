@@ -10,7 +10,7 @@ module GroupsHelper
       data << tag.li(class: 'mt-1') do
         content = ''
         content << member
-        content.html_safe # rubocop:disable Rails/OutputSafety
+        content.html_safe
       end
     end
 
