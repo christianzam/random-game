@@ -35,8 +35,8 @@ module DrawsHelper
   end
 
   def draw_btn(group_id)
-    title = Member.where(give_to: nil, group_id: group_id).empty? ? 'Re-Start Draw' : 'Start Draw'
-    
+    title = Group.find_by(id: group_id).draw_performed? ? 'Re-Start Draw' : 'Start Draw'
+
     form_tag draws_path(id: group_id), method: :post do
       submit_tag "#{title}", class: 'bg-green-900 hover:bg-green-700 cursor-pointer text-white font-bold py-2 px-4 rounded'
     end
