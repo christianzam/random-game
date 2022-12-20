@@ -21,4 +21,20 @@ module DrawsHelper
     end
     safe_join(data)
   end
+
+  def draw_titles(group_id)
+    nicknames = Member.where(give_to: nil, group_id: group_id).map{ |member| member.nickname}
+    return if nicknames.empty?
+    
+    return "#{nicknames.size} Santa left" if nicknames.size == 1
+    return "#{nicknames.size} Santas left" if nicknames.size > 2
+  end
+
+  def draw_btn(group_id)
+    title = Member.where(give_to: nil, group_id: group_id).empty? ? 'Re-Start Draw' : 'Start Draw'
+    
+    form_tag draws_path(id: group_id), method: :post do
+      submit_tag "#{title}", class: 'bg-green-900 hover:bg-green-700 cursor-pointer text-white font-bold py-2 px-4 rounded'
+    end
+  end
 end

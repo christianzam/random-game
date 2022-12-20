@@ -58,5 +58,6 @@ if Rails.env.development?
     members: names.flatten
   )
 
+  Member.all.update(group_id: Group.last.id)
   puts 'seed file ran succesfully!, bye'
 end

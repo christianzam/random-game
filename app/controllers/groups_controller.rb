@@ -33,6 +33,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       Member.create(nickname: group_params["members"],
                       email: group_params["email"],
+                      group_id: @group.id,
                       interests: { activity: group_params["hobbies"], 
                                   activity_2: group_params["interests"] }
       )

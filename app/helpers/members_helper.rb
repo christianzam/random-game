@@ -1,6 +1,11 @@
 module MembersHelper
-  def available_santas
-    return "No available Santas left" if Member.where(give_to: nil).empty?
+  def available_santas(group_id)
+    return 'Your group is empty, add some Santas!' if Group.find_by(id: group_id).members.empty?
+
+    if Member.where(give_to: nil, group_id: group_id).empty?
+      date_time = Member.where.not(give_to: nil, group_id: group_id).last.updated_at
+      return "Draw completed at #{date_time.strftime("%d/%b/%y %H:%Mhrs")}"
+    end
     
     data = []
     Member.where(give_to: nil).each do |member|
