@@ -31,9 +31,15 @@ class GroupsController < ApplicationController
 
   def update
     respond_to do |format|
+      Member.create(nickname: group_params["members"],
+                      email: group_params["email"],
+                      group_id: @group.id,
+                      interests: { activity: group_params["hobbies"], 
+                                  activity_2: group_params["interests"] }
+      )
+
       original_members_array = @group.members
       original_members_array << group_params["members"]
-      
 
       if @group.update(members: original_members_array)
         format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
@@ -60,6 +66,6 @@ class GroupsController < ApplicationController
     end
 
     def group_params
-      params.require(:group).permit(:name, :members, members: [])
+      params.require(:group).permit(:name, :email, :interests, :hobbies, :members, members: [])
     end
 end
