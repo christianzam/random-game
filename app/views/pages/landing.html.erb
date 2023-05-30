@@ -1,95 +1,50 @@
-<div class="absolute top-0 w-full h-full" 
-     style="background-image: url(https://images.unsplash.com/photo-1515523110800-9415d13b84a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80);background-repeat: no-repeat;background-size:cover;">
-  <div class="container mx-auto px-4 h-full">
-    <div class="flex content-center items-center justify-center h-full">
-      <div class="w-full lg:w-4/12 px-4">
-        <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-green-900 border-0">
-          <div class="rounded-t mb-0 px-6 py-6">
-            <div class="text-center mb-3">
-              <h1 class="text-white text-lg font-bold">
-                Inserta y gana
-              </h1>
-              <div>
-                <span style="font-size: 2.5em;">🏀</span>
-              </div>
-            </div>
-            <hr class="mt-6 border-b-1 border-gray-400" />
-          </div>
-          <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-            <%= simple_form_for(:user, url: session_path(:user)) do |f| %>
-              <div>
-                <label class="block uppercase text-white text-xs font-bold mb-2" for="grid-password">
-                  Email
-                </label>             
-                <%= f.input :email,
-                  label: false,
-                  required: false,
-                  autofocus: true,
-                  input_html: { autocomplete: "email", class: "border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full", style: "transition: all 0.15s ease 0s;" } %>
-              </div>
-              <div class="mt-2">
-                <label class="block uppercase text-white text-xs font-bold mb-2" for="grid-password">
-                  Password
-                </label>
-                <%= f.input :password,
-                label: false,
-                required: false,
-                input_html: { autocomplete: "current-password", class: "border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full", style: "transition: all 0.15s ease 0s;" } %>
-              </div>
-              <div class="mt-2">
-                <label class="inline-flex items-center cursor-pointer"
-                  ><input
-                    id="customCheckLogin"
-                    type="checkbox"
-                    class="form-checkbox border-0 rounded text-gray-800 ml-1 w-5 h-5"
-                    style="transition: all 0.15s ease 0s;"
-                  /><span class="ml-2 text-sm font-semibold text-white"
-                    >Remember me</span
-                  ></label
-                >
-              </div>
-              <div class="text-center mt-6">
-                <%= f.button :submit, "Sign In", class: "bg-red-900 text-white active:bg-white text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full", style: "transition: all 0.15s ease 0s;" %>
-              </div>
-            <% end %>
-              <br/>
-          </div>
-        </div>
-        <div>
-          <div class="flex flex-wrap mt-6 mb-3">
-            <div class="w-1/2">
-              <a href="#pablo" class="text-gray-300"
-                ><small>Forgot password?</small></a
-              >
-            </div>
-            <div class="w-1/2 text-right">
-              <a href="#pablo" class="text-gray-300"
-                ><small>Create new account</small></a
-              >
-            </div>
-          </div>
-        </div>
+<div class="bg-green-900 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="mx-auto h-10 w-auto">
+      <div class="text-center justify-center">
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Insertala y gana</h2>
+        <span style="font-size: 2.5em;">🏀</span>
       </div>
     </div>
   </div>
-</div>
 
-  <footer class="absolute w-full bottom-0 bg-red-900 pb-6">
-    <div class="container mx-auto px-4">
-      <hr class="mb-6 border-b-1 border-gray-700" />
-      <div class="flex flex-wrap items-center md:justify-between justify-center">
-        <div class="w-full md:w-8/12 px-4">
-          <ul class="flex flex-wrap list-none md:justify-end">
-            <li>
-              <a
-                href="https://www.nba.com"
-                class="text-white hover:text-gray-400 text-sm font-semibold block py-1 px-3"
-                >NBA.com</a
-              >
-            </li>
-          </ul>
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="mt-10">
+      <%= simple_form_for(:user, url: session_path(:user), class:"space-y-6") do |f| %>
+        <div>
+          <label for="email" class="block text-sm font-medium leading-6 text-white">
+            Email
+          </label>
+          <div class="mt-2">
+            <%= f.input :email,
+            label: false,
+            required: false,
+            autofocus: true, 
+            input_html: {class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}  %>
+          </div>
         </div>
-      </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium leading-6 text-white">
+            Password
+          </label>
+          <div class="mt-2 mb-10">
+            <%= f.input :password,
+            label: false,
+            required: false,
+            autofocus: true, 
+            input_html: {class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}  %>
+          </div>
+        </div>
+        <div>
+          <%= f.button :submit, "Sign In", class: "bg-red-900 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-grey-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+        </div>
+      <% end %>
+
+      <p class="mt-10 text-center text-sm text-white">
+        Not a member?
+        <a href="https://mx.linkedin.com/in/eduardo-rubio-lezama-7b9a7b1a3" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500" target="_blank">Tell Lalo</a>
+      </p>
     </div>
-  </footer>
-  
+  </div>
+</div>
