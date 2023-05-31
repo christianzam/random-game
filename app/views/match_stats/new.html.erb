@@ -1,0 +1,27 @@
+<div class="bg-green-900 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="mt-10">
+      <%= simple_form_for(@match_stat, url: match_stats_path, method: :post, class: "space-y-6") do |f| %>
+        <div class="my-4">
+          <%= f.label :user_id, "Jugador", class: "block text-sm font-medium leading-6 text-white" %>
+          <%= f.collection_select :user_id, User.all, :id, :name, prompt: true, input_html: { class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" } %>
+        </div>
+        <div class="my-4">
+          <%= f.label :points, "Puntos", class: "block text-sm font-medium leading-6 text-white" %>
+          <%= f.input :points, label: false, required: false, autofocus: true, input_html: { class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" } %>
+        </div>
+        <div class="my-4">
+          <%= f.label :position, "Lugar", class: "block text-sm font-medium leading-6 text-white" %>
+          <%= f.input :position, label: false, required: false, autofocus: true, input_html: { class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" } %>
+        </div>
+        <div class="my-4">
+          <%= f.label :match_date, "Fecha", class: "block text-sm font-medium leading-6 text-white" %>
+          <%= f.input :match_date, label: false, required: false, autofocus: true, input_html: { class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" } %>
+        </div>
+        <div class="my-4">
+          <%= f.button :submit, "Create", class: "bg-red-900 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-grey-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

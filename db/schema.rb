@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_08_054632) do
+ActiveRecord::Schema.define(version: 2023_05_31_062602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "match_stats", force: :cascade do |t|
+    t.bigint "player_stat_id", null: false
+    t.integer "points"
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.date "match_date"
+    t.bigint "user_id"
+    t.index ["player_stat_id"], name: "index_match_stats_on_player_stat_id"
+    t.index ["user_id"], name: "index_match_stats_on_user_id"
+  end
+
+  create_table "player_stats", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_player_stats_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,4 +51,19 @@ ActiveRecord::Schema.define(version: 2022_12_08_054632) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "weekly_stats", force: :cascade do |t|
+    t.date "week_start_date"
+    t.date "week_end_date"
+    t.integer "total_points"
+    t.integer "total_places"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_weekly_stats_on_user_id"
+  end
+
+  add_foreign_key "match_stats", "player_stats"
+  add_foreign_key "match_stats", "users"
+  add_foreign_key "player_stats", "users"
+  add_foreign_key "weekly_stats", "users"
 end

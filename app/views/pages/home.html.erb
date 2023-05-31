@@ -1,63 +1,64 @@
-<div class="flex items-center justify-center mb-10">
-  <div class="w-1/2">
+<div class="flex items-center justify-center space-x-5 mb-10 px-5">
+  <div class="w-1/2 mt-10">
     <div class="relative overflow-x-auto">
-      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                  <th scope="col" class="px-6 py-3"></th>
-                  <th scope="col" class="px-6 py-3">Place</th>
-                  <th scope="col" class="px-6 py-3">Score</th>
-                  <th scope="col" class="px-6 py-3">Draw</th>
+                <th scope="col" class="px-6 py-3"></th>
+                <th scope="col" class="px-6 py-3">Puntos</th>
+                <th scope="col" class="px-6 py-3">Lugar</th>
               </tr>
           </thead>
           <tbody>
             <% User.all.each do |user| %>
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      <%= user.name %>
+                      <%= user.name %><%= image_tag(image_path("#{user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
                   </th>
-                  <td class="px-6 py-4">
-                      <%= user.nick_name %>
-                  </td>
-                  <td class="px-6 py-4">
-                      <%= user.interest %>
-                  </td>
-                  <td class="px-6 py-4">
-                      <%= user.admin %>
-                  </td>
+                  <% user.player_stats.all.each do |pl| %>
+                    <td class="px-6 py-4">
+                      <%= pl.match_stats.first.position %>
+                    </td>
+                    <td class="px-6 py-4">
+                      <%= pl.match_stats.first.points %>
+                    </td>
+                  <% end %>
               </tr>
             <% end %>          
           </tbody>
       </table>
     </div>      
   </div>
-</div>
 
-<div class="flex items-center justify-center">
   <div class="w-1/2">
-    <div id="default-carousel" class="relative w-full" data-carousel="static">  <!-- data-carousel="slide"> -->
+    <div class="flex items-center bg-gray-200 justify-center text-3xl text-red-900 py-5">The players</div>
+    <div id="default-carousel" class="relative w-full" data-carousel="slide">  <!-- data-carousel="slide"> -->
       <!-- Carousel wrapper -->
       <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
           <!-- Item 1 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-              <img src="https://images.unsplash.com/photo-1515523110800-9415d13b84a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <%= image_tag(image_path("Tinoco.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "tinoco") %>
           </div>
           <!-- Item 2 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-              <img src="https://images.unsplash.com/photo-1515523110800-9415d13b84a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <%= image_tag(image_path("Axel.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
           </div>
           <!-- Item 3 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-              <img src="https://images.unsplash.com/photo-1515523110800-9415d13b84a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <%= image_tag(image_path("Christian.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
           </div>
           <!-- Item 4 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-              <img src="https://images.unsplash.com/photo-1515523110800-9415d13b84a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <%= image_tag(image_path("Pato.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
           </div>
           <!-- Item 5 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-              <img src="https://images.unsplash.com/photo-1515523110800-9415d13b84a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <%= image_tag(image_path("Kike.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
           </div>
+          <!-- Item 6 -->
+          <div class="hidden duration-700 ease-in-out" data-carousel-item>
+            <%= image_tag(image_path("Lalo.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+          </div>          
       </div>
       <!-- Slider indicators -->
       <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
@@ -77,11 +78,12 @@
       <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
           <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
               <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-              <span class="sr-only">Next</span>
+              <span class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"></span>
           </span>
       </button>
     </div>
-  </div>  
+  </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>

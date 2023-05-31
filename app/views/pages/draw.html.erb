@@ -1,0 +1,23 @@
+  <div class="flex items-center justify-center mb-10">
+    <div class="w-1/2">
+      <div class="relative overflow-x-auto">
+        <table class="w-full text-5xl text-left text-gray-500 dark:text-gray-400">
+            <tbody>
+              <% result.each_with_index do |pl, index|%>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-large text-gray-900 whitespace-nowrap dark:text-white">
+                      <%= "#{index + 1}. " %>
+                    </th>
+                    <td class="px-6 py-4">
+                      <%= pl %>
+                    </td>
+                </tr>
+              <% end %>          
+            </tbody>
+        </table>
+      </div>
+      <div class="mt-10">
+        <%= button_to 'Rifate', '#', class: "bg-red-900 flex w-full justify-center rounded-md px-3 py-4 text-2xl font-semibold leading-6 text-white shadow-sm hover:bg-grey-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", onclick: 'location.reload(); return false;' %>     
+      </div>
+    </div>
+  </div>
