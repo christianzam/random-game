@@ -13,16 +13,8 @@
             <% User.all.each do |user| %>
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      <%= user.name %><%= image_tag(image_path("#{user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
+                      <%= user.name %> <%#= image_tag(image_path("#{user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
                   </th>
-                  <% user.player_stats.all.each do |pl| %>
-                    <td class="px-6 py-4">
-                      <%= pl.match_stats.first.position %>
-                    </td>
-                    <td class="px-6 py-4">
-                      <%= pl.match_stats.first.points %>
-                    </td>
-                  <% end %>
               </tr>
             <% end %>          
           </tbody>

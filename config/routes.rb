@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'matches/new'
+  get 'matches/create'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -6,8 +8,6 @@ Rails.application.routes.draw do
 
   root to: 'pages#landing'
   get 'pages/home', to: 'pages#home'
-  resources :player_stats
-  resources :match_stats
-  resources :weekly_stats
+  resources :matches, only: [:new, :create]
   get 'pages/draw', to: 'pages#draw'
 end

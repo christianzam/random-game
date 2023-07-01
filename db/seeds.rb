@@ -22,6 +22,7 @@ if Rails.env.development?
 
   players.each_with_index do |player, index|
     nicknames = %w(Lalo Erinu Tinoco Kike Pato Diego)
+
     user = User.create_with(
       password: SEED_PASSWORD,
       admin: false,

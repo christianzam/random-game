@@ -1,11 +1,34 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :bigint           not null, primary key
+#  admin                  :boolean
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  interest               :jsonb
+#  last_name              :string
+#  name                   :string
+#  nick_name              :string
+#  remember_created_at    :datetime
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_one :player_stat, dependent: :destroy
-  has_many :match_stats, dependent: :destroy
+  has_many :player_match_results, dependent: :destroy
+  has_one :weekly_result
   
   validates :email, presence: true
   validates :email, uniqueness: true
@@ -14,7 +37,13 @@ class User < ApplicationRecord
   validates :name, length: { minimum: 2, maximum: 15 }, presence: true
   validates :last_name, length: { minimum: 2, maximum: 15 }, presence: true
 
+  # after_create :create_player_stat
+
   def full_name
     "#{name} #{last_name}"
   end
+
+  # def create_player_stat
+  #   PlayerStat.create(user_id: self.id)
+  # end
 end
