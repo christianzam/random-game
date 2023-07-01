@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_many :player_stats, dependent: :destroy
+  has_one :player_stat, dependent: :destroy
   has_many :match_stats, dependent: :destroy
   
   validates :email, presence: true

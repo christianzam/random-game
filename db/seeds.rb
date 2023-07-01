@@ -17,29 +17,19 @@ if Rails.env.development?
 
   User.destroy_all
 
-  chris = User.create!(password:'kiwi123', email: 'chris@mail.com', name: 'Christian', last_name: 'Zamora', admin: true)
-  players = %w(Lalo Axel Tinoco Kike Pato)
+  chris = User.create!(password: SEED_PASSWORD, email: 'chris@mail.com', name: 'Christian', last_name: 'Zamora', nick_name: 'Chris', admin: true)
+  players = %w(Eduardo Axel AxlChristian Enrique Patricio Diego)
 
-  players.each do |player|
+  players.each_with_index do |player, index|
+    nicknames = %w(Lalo Erinu Tinoco Kike Pato Diego)
     user = User.create_with(
       password: SEED_PASSWORD,
       admin: false,
       name: player,
       last_name: Faker::Name.last_name,
-      nick_name: Faker::Fantasy::Tolkien.character,
+      nick_name: nicknames[index],
       interest: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
     ).find_or_create_by!(email: "#{player}@mail.com")
   end
-
-  # (1..6).each do |i|
-  #   user = User.create_with(
-  #     password: SEED_PASSWORD,
-  #     admin: false,
-  #     name: Faker::Name.first_name,
-  #     last_name: Faker::Name.last_name,
-  #     nick_name: Faker::Fantasy::Tolkien.character,
-  #     interest: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
-  #   ).find_or_create_by!(email: "#{Faker::Name.first_name}@mail.com")
-  # end
   puts 'seed file ran succesfully!, bye'
 end
