@@ -13,7 +13,6 @@ class Match < ApplicationRecord
   accepts_nested_attributes_for :player_match_results
 
   def submitted_users
-    puts '11111111111111111111'
     users.pluck(:id)
   end
 end

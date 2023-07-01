@@ -2,28 +2,33 @@
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <div class="mt-6">
       <h1 class="text-white text-2xl font-bold mb-6"><%=Time.zone.now.strftime("%A %d %B %Y") %></h1>
-      <%= simple_form_for @match, url: matches_path, html: { class: "space-y-4" } do |form| %>
-        <div>
-          <label class="block text-lg font-bold text-white mb-6">
-            Fecha
-          </label>
-          <%= form.input :date, label: false, input_html: { class: "rounded-lg py-2 px-3 w-full bg-gray-100 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300" } %>
-
-          <%= form.fields_for :player_match_results do |player_fields| %>
-            <h2 class="text-lg font-bold text-white mt-6">Jugador <%= player_fields.index.nil? ? 1 : player_fields.index + 1 %></h2>
-            <%#= player_fields.label :user, "Jugador", class: "text-white" %>
-            <%= player_fields.collection_select :user_id, @available_users, :id, :name, {}, { class: "rounded-lg py-2 px-3 w-full bg-gray-100 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300 mt-2" } %>
-            <label for="Points" class="block text-lg font-bold text-white mb-6">
-              Puntos
-            </label>
-            <%= player_fields.input :points, label: false, input_html: { class: "rounded-lg py-2 px-3 w-full text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300 mt-5", type: "number"  } %>
-          <% end %>
+      <% if @available_users.any? %>
+        <%= simple_form_for @match, url: matches_path, html: { class: "space-y-4" } do |form| %>
+          <%= form.hidden_field :date, value: @match.date %>
+          <div>
+            <%= form.fields_for :player_match_results do |player_fields| %>
+              <h2 class="text-lg font-bold text-white mt-6">Jugador</h2>
+              <%= player_fields.collection_select :user_id, @available_users, :id, :name, {}, { class: "rounded-lg py-2 px-3 w-full bg-gray-100 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300 my-2" } %>
+              <label for="Points" class="block text-lg font-bold text-white">
+                Puntos
+              </label>
+              <%= player_fields.input :points, label: false, input_html: { class: "rounded-lg py-2 px-3 w-full text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300 mt-5", type: "number"  } %>
+            <% end %>
+          </div>
+          <div>
+            <%= form.button :submit, "Submit", class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-6 w-full" %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="flex min-h-full flex-col justify-center">
+          <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <h1 class="text-white text-2xl font-bold mb-6">
+              Se han ingresado los puntos de todos
+            </h1>
+          </div>
         </div>
-        <div>
-          <%= form.button :submit, "Submit", class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-6 w-full" %>
-        </div>
+        <%= link_to 'Edit Points', edit_points_match_path(@match_to_edit), class: "text-white text-sm font-medium mt-4 block text-center" %>
       <% end %>
-      <%= link_to 'Back', matches_path, class: "text-white text-sm font-medium mt-4 block text-center" %>
     </div>
   </div>
 </div>
