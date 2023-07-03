@@ -25,4 +25,24 @@ class PlayerMatchResult < ApplicationRecord
   belongs_to :match
 
   validates :user_id, uniqueness: { scope: :match_id }
+  validate :points_not_nil
+
+  after_create :assign_place
+
+  def points_not_nil
+    if points.nil?
+      errors.add(:points, "no puede estar en blanco")
+    end
+  end
+
+  private
+
+  def assign_place
+    if match.player_match_results.count == User.count
+      ordered_results = match.player_match_results.order(points: :desc)
+      ordered_results.each.with_index(1) do |player_match_result, index|
+        player_match_result.update(place: index)
+      end
+    end
+  end
 end

@@ -35,15 +35,9 @@ class User < ApplicationRecord
   validates :email, format: { with: Devise.email_regexp }
   validates :nick_name, uniqueness: true
   validates :name, length: { minimum: 2, maximum: 15 }, presence: true
-  validates :last_name, length: { minimum: 2, maximum: 15 }, presence: true
-
-  # after_create :create_player_stat
+  validates :last_name, length: { minimum: 2, maximum: 15 }
 
   def full_name
     "#{name} #{last_name}"
   end
-
-  # def create_player_stat
-  #   PlayerStat.create(user_id: self.id)
-  # end
 end

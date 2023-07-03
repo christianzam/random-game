@@ -1,9 +1,15 @@
 class MatchesController < ApplicationController
-  before_action :set_available_users, only: :new
+  before_action :set_available_users, only: %i(new edit_points)
   before_action :set_editable_match, only: %i(new edit_points update_points)
+  before_action :set_existing_match, only: %i(new show)
+
+  def index
+    @matches = Match.all
+  end
 
   def new
     @match = Match.where(date: Time.zone.now).last
+
     if @match.nil? || @match.player_match_results.present?
       @match = Match.new(date: Time.zone.now)
       @match.player_match_results.build
@@ -12,6 +18,7 @@ class MatchesController < ApplicationController
 
   def create
     @match = Match.where(date: Time.zone.now).last
+
     if @match.nil?
       @match = Match.new(match_params)
       @match.player_match_results.build(user_id: current_user.id) if @match.player_match_results.empty?
@@ -21,16 +28,14 @@ class MatchesController < ApplicationController
     end
   
     if @match.save
-      redirect_to new_match_path, notice: "Los puntos han sido ingresados"
+      redirect_to matches_new_path, notice: "Los puntos se ingresaron correctamente"
     else
-      flash.now[:alert] = "Failed to create match."
-      render :new
+      redirect_to matches_new_path, alert: "Error: #{@match.errors.full_messages.first}"
     end
   end
-  
 
   def show
-    @match = Match.find(params[:id])
+    @match = @existing_match
   end
 
   def edit_points
@@ -39,9 +44,9 @@ class MatchesController < ApplicationController
   
   def update_points
     if @match_to_edit.update(match_params)
-      redirect_to new_match_path, notice: "Player points updated successfully."
+      redirect_to matches_new_path, notice: "Los puntos se ingresaron correctamente"
     else
-      flash.now[:alert] = "Failed to update player points."
+      flash.now[:alert] = "Error al ingresar puntos: #{@match_to_edit.errors.full_messages}"
       render :edit_points
     end
   end
@@ -53,16 +58,21 @@ class MatchesController < ApplicationController
   end
 
   def set_available_users
-    # @available_users = User.left_outer_joins(:player_match_results).where(player_match_results: { id: nil })
     today_matches = Match.where(date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
     used_users = PlayerMatchResult.where(match: today_matches).pluck(:user_id)
     @available_users = User.where.not(id: used_users)
+  end
+
+  def set_existing_match
+    return if Match.all.empty?
+
+    @existing_match = Match.find_by(date: Time.zone.now)
   end
 
   def set_editable_match
     return if Match.all.empty?
 
     @match_to_edit = Match.where(date: Time.zone.now).last
-    @match_to_edit.date = Time.zone.now
+    @match_to_edit.date = Time.zone.now if @match_to_edit.present?
   end
 end

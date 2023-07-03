@@ -23,11 +23,14 @@
         <div class="flex min-h-full flex-col justify-center">
           <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <h1 class="text-white text-2xl font-bold mb-6">
-              Se han ingresado los puntos de todos
+              Se han ingresado los puntos de todos los jugadores
             </h1>
+            <%= link_to 'Ver resultados -->', match_path(@existing_match), class: "text-white text-sm font-medium mt-4 block text-center" %>
           </div>
         </div>
-        <%= link_to 'Edit Points', edit_points_match_path(@match_to_edit), class: "text-white text-sm font-medium mt-4 block text-center" %>
+        <h2>
+          <%= link_to 'Editar puntos -->', edit_points_match_path(@match_to_edit), class: "text-white text-sm font-medium mt-4 block text-center" %>
+        </h2>
       <% end %>
     </div>
   </div>

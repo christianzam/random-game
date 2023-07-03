@@ -9,9 +9,8 @@ Rails.application.routes.draw do
   get 'pages/draw', to: 'pages#draw'
   get 'matches/new'
   get 'matches/create'
-  get 'matches/:id', to: 'matches#show'
   get 'matches/:id/edit_points', to: 'matches#edit_points', as: 'edit_points_match'
-  resources :matches, only: [:new, :create] do
+  resources :matches do
     member do
       get 'edit_points'
       patch 'update_points'

@@ -17,37 +17,28 @@
   </div>
   <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
     <li>
-      <%= link_to 'Puntaje por dia', '#', class: "text-sm text-blue-600 font-bold" %>
+      <%= link_to 'Todos los Resultados', '#', class: "text-sm text-blue-600 font-bold" %>
     </li>
-    <li class="text-gray-300">
-      |
-    </li>
+    <li class="text-gray-300">|</li>
     <li>
-      <%= link_to 'Puntaje semanal', '#', class: "text-sm text-blue-600 font-bold" %>
+      <%= link_to 'Partidos Jugados', matches_path, class: "text-sm text-blue-600 font-bold" %>
     </li>
-    <li class="text-gray-300">
-      |
-    </li>
+    <li class="text-gray-300">|</li>
     <li>
-      <%= link_to 'Ingresa puntos del dia', matches_new_path, class: "text-sm text-blue-600 font-bold" %>
+      <%= link_to 'Ingresar puntos', matches_new_path, class: "text-sm text-blue-600 font-bold hover:text-gray-500" %>
     </li>
-    <li class="text-gray-300">
-      |
+    <li class="text-gray-300">|</li>
+    <li>
+      <%= link_to 'Rifa', pages_draw_path, class: "text-sm text-blue-600 font-bold hover:text-gray-500" %>
     </li>
-      <%= link_to 'Rifa', pages_draw_path, class: "text-sm text-gray-400 hover:text-gray-500" %>
+    <li class="text-gray-300">|</li>
+    <li>
+      <%= link_to 'Mi Perfil', '#', class: "text-sm text-blue-600 font-bold hover:text-gray-500" %>
     </li>
-    <li class="text-gray-300">
-      |
+    <li class="text-gray-300">|</li>
+    <li>
+      <%= link_to 'Reglas', '#', class: "text-sm text-blue-600 font-bold hover:text-gray-500" %>
     </li>
-    <li><a class="text-sm text-gray-400 hover:text-gray-500" href="#">Mi perfil</a></li>
-    <li class="text-gray-300">
-      |
-    </li>
-    <li><a class="text-sm text-gray-400 hover:text-gray-500" href="#">Reglas</a></li>
-    <li class="text-gray-300">
-      |
-    </li>
-    <li><a class="text-sm text-gray-400 hover:text-gray-500" href="https://www.nba.com/" target="_blank">NBA.com</a></li>
   </ul>
   <% if signed_in? %>
     <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-red-900 hover:bg-red-700 text-sm text-white font-bold  rounded transition duration-200" %>
