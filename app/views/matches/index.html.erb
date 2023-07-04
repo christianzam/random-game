@@ -11,7 +11,7 @@
           <div class="grid grid-cols-2 gap-8">
             <% matches_batch.each do |match| %>
               <div>
-                <h1 class="text-white text-2xl font-bold mb-6"><%= (match.date - 1.day).strftime("%A %d %B %Y")%></h1>
+                <h1 class="text-white text-2xl font-bold mb-6"><%= match.date.strftime("%A %d %B %Y")%></h1>
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
                   <!-- Table header -->
                   <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

@@ -10,34 +10,32 @@
             <th scope="col" class="px-6 py-3">Puntos</th>
             <th scope="col" class="px-6 py-3">Promedio</th>
             <th scope="col" class="px-6 py-3">Empates</th>
-            <th scope="col" class="px-6 py-3">Juegos</th>
           </tr>
         </thead>
         <tbody>
-          <% @users.each_with_index do |user, index| %>
+          <% @matches.each do |match| %>
+            <% match.player_match_results.order(points: :desc).each_with_index do |player_match_result, index| %>
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   <div class="flex items-center">
-                    <%= image_tag(image_path("#{user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
-                    <span class="ml-2"><%= user.name %></span>
+                    <%= image_tag(image_path("#{player_match_result.user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
+                    <span class="ml-2"><%= player_match_result.user.name %></span>
                   </div>
                 </td>
                 <td class="px-6 py-4">
-                  <%= total_place(user) %>
+                  <%= index + 1 %>
                 </td>
                 <td class="px-6 py-4">
-                  <%= total_points(user) %>
+                  <%= player_match_result.points * 2 %>
                 </td>
                 <td class="px-6 py-4">
-                  <%= score_avrg(user).to_f %>%
+                  <!-- Add average calculation logic here -->
                 </td>
                 <td class="px-6 py-4">
                   <!-- Add draw calculation logic here -->
                 </td>
-                <td class="px-6 py-4">
-                  <%= total_matches(user) %>
-                </td>
               </tr>
+            <% end %>
           <% end %>
         </tbody>
       </table>

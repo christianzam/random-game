@@ -2,22 +2,23 @@ class MatchesController < ApplicationController
   before_action :set_available_users, only: %i(new edit_points)
   before_action :set_editable_match, only: %i(new edit_points update_points)
   before_action :set_existing_match, only: %i(new show)
+  DATE = Time.zone.now - 6.hour
 
   def index
     @matches = Match.all
   end
 
   def new
-    @match = Match.where(date: Time.zone.now).last
+    @match = Match.where(date: DATE).last
 
     if @match.nil? || @match.player_match_results.present?
-      @match = Match.new(date: Time.zone.now)
+      @match = Match.new(date: DATE)
       @match.player_match_results.build
     end
   end
 
   def create
-    @match = Match.where(date: Time.zone.now).last
+    @match = Match.where(date: DATE).last
 
     if @match.nil?
       @match = Match.new(match_params)
@@ -58,7 +59,7 @@ class MatchesController < ApplicationController
   end
 
   def set_available_users
-    today_matches = Match.where(date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+    today_matches = Match.where(date: DATE.beginning_of_day..DATE.end_of_day)
     used_users = PlayerMatchResult.where(match: today_matches).pluck(:user_id)
     @available_users = User.where.not(id: used_users)
   end
@@ -66,13 +67,13 @@ class MatchesController < ApplicationController
   def set_existing_match
     return if Match.all.empty?
 
-    @existing_match = Match.find_by(date: Time.zone.now)
+    @existing_match = Match.find_by(date: DATE)
   end
 
   def set_editable_match
     return if Match.all.empty?
 
-    @match_to_edit = Match.where(date: Time.zone.now).last
-    @match_to_edit.date = Time.zone.now if @match_to_edit.present?
+    @match_to_edit = Match.where(date: DATE).last
+    @match_to_edit.date = DATE if @match_to_edit.present?
   end
 end

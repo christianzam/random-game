@@ -4,7 +4,9 @@ class PagesController < ApplicationController
   
   def landing; end
 
-  def home; end
+  def home
+    @users = User.includes(:player_match_results).order('player_match_results.points DESC')
+  end
 
   def draw; end
 
