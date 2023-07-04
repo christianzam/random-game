@@ -1,5 +1,5 @@
 <div class="flex items-center justify-center mb-5 text-red-900 text-2xl font-bold leading-9 tracking-tight mb-5">
-  <%=Time.zone.now.strftime("%A %d %B %Y") %>
+  <%= Date.today.strftime("%A %d %B %Y") %>
 </div>
 <div class="flex items-center justify-center mb-5 text-red-900 text-2xl font-bold leading-9 tracking-tight mb-5">
   <div class="mt-10 w-1/2">
@@ -54,9 +54,9 @@
   const testTitle = document.querySelector(".js-test-title");
   const finalTitle = document.querySelector(".js-final-title");
 
-  let first_shuffle = ['Lalo', 'Pato', 'Chris', 'Tinoco', 'Kike', 'Diego'].sort(() => Math.random() - 0.6);
-  let second_shuffle = ['Lalo', 'Pato', 'Chris', 'Tinoco', 'Kike', 'Diego'].sort(() => Math.random() - 0.6);
-  let third_shuffle = ['Lalo', 'Pato', 'Chris', 'Tinoco', 'Kike', 'Diego'].sort(() => Math.random() - 0.6);
+  let first_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Diego', 'Erinu'].sort(() => Math.random() - 0.6);
+  let second_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Diego', 'Erinu'].sort(() => Math.random() - 0.6);
+  let third_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Diego', 'Erinu'].sort(() => Math.random() - 0.6);
 
   const results = [
     first_shuffle,

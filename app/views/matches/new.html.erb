@@ -1,7 +1,7 @@
 <div class="bg-green-900 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <div class="mt-6">
-      <h1 class="text-white text-2xl font-bold mb-6"><%=Time.zone.now.strftime("%A %d %B %Y") %></h1>
+      <h1 class="text-white text-2xl font-bold mb-6"><%= Date.today.strftime("%A %d %B %Y") %></h1>
       <% if @available_users.any? %>
         <%= simple_form_for @match, url: matches_path, html: { class: "space-y-4" } do |form| %>
           <%= form.hidden_field :date, value: @match.date %>

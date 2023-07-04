@@ -13,7 +13,7 @@
             <% User.all.each do |user| %>
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      <%= user.name %> <%#= image_tag(image_path("#{user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
+                      <%= user.name %> <%= image_tag(image_path("#{user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
                   </th>
               </tr>
             <% end %>          
@@ -29,7 +29,7 @@
       <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
           <!-- Item 1 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Tinoco.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "tinoco") %>
+            <%= image_tag(image_path("AxlChristian.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "tinoco") %>
           </div>
           <!-- Item 2 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -41,16 +41,20 @@
           </div>
           <!-- Item 4 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Pato.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+            <%= image_tag(image_path("Patricio.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
           </div>
           <!-- Item 5 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Kike.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+            <%= image_tag(image_path("Enrique.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
           </div>
           <!-- Item 6 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Lalo.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-          </div>          
+            <%= image_tag(image_path("Eduardo.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+          </div>
+          <!-- Item 7 -->
+          <div class="hidden duration-700 ease-in-out" data-carousel-item>
+            <%= image_tag(image_path("Diego.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+          </div>        
       </div>
       <!-- Slider indicators -->
       <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
