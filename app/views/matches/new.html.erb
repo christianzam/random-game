@@ -10,7 +10,7 @@
               <h2 class="text-lg font-bold text-white mt-6">Jugador</h2>
               <%= player_fields.collection_select :user_id, @available_users, :id, :name, {}, { class: "rounded-lg py-2 px-3 w-full bg-gray-100 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300 my-2" } %>
               <label for="Points" class="block text-lg font-bold text-white">
-                Puntos
+                Canastas
               </label>
               <%= player_fields.input :points, label: false, input_html: { class: "rounded-lg py-2 px-3 w-full text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300 mt-5", type: "number"  } %>
             <% end %>
