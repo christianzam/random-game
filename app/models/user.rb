@@ -28,7 +28,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_many :player_match_results, dependent: :destroy
-  has_one :weekly_result
+  has_many :weekly_result, dependent: :destroy
   
   validates :email, presence: true
   validates :email, uniqueness: true

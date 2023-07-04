@@ -1,60 +1,80 @@
+<div class="w-1/2 flex items-center bg-gray-200 justify-center text-3xl text-red-900 py-5">RESULTADOS SEMANA <%= Date.today %></div>
 <div class="flex items-center justify-center space-x-5 mb-10 px-5">
   <div class="w-1/2 mt-10">
     <div class="relative overflow-x-auto">
       <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
-          <thead class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" class="px-6 py-3"></th>
-                <th scope="col" class="px-6 py-3">Puntos</th>
-                <th scope="col" class="px-6 py-3">Lugar</th>
-              </tr>
-          </thead>
-          <tbody>
-            <% User.all.each do |user| %>
+        <thead class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3"></th>
+            <th scope="col" class="px-6 py-3">Lugar</th>
+            <th scope="col" class="px-6 py-3">Puntos</th>
+            <th scope="col" class="px-6 py-3">Promedio</th>
+            <th scope="col" class="px-6 py-3">Empates</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @matches.each do |match| %>
+            <% match.player_match_results.order(points: :desc).each_with_index do |player_match_result, index| %>
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      <%= user.name %> <%= image_tag(image_path("#{user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
-                  </th>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <div class="flex items-center">
+                    <%= image_tag(image_path("#{player_match_result.user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
+                    <span class="ml-2"><%= player_match_result.user.name %></span>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <%= index + 1 %>
+                </td>
+                <td class="px-6 py-4">
+                  <%= player_match_result.points * 2 %>
+                </td>
+                <td class="px-6 py-4">
+                  <!-- Add average calculation logic here -->
+                </td>
+                <td class="px-6 py-4">
+                  <!-- Add draw calculation logic here -->
+                </td>
               </tr>
-            <% end %>          
-          </tbody>
+            <% end %>
+          <% end %>
+        </tbody>
       </table>
-    </div>      
+    </div> 
   </div>
 
-  <div class="w-1/2">
-    <div class="flex items-center bg-gray-200 justify-center text-3xl text-red-900 py-5">The players</div>
-    <div id="default-carousel" class="relative w-full" data-carousel="slide">  <!-- data-carousel="slide"> -->
+  <div class="w-1/2 flex items-center justify-center">
+    <%# <div class="flex items-center bg-gray-200 justify-center text-3xl text-red-900 py-5"></div> %>
+    <div id="default-carousel" class="relative w-1/2" data-carousel="slide">  <!-- data-carousel="slide"> -->
       <!-- Carousel wrapper -->
       <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-          <!-- Item 1 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("AxlChristian.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "tinoco") %>
-          </div>
-          <!-- Item 2 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Axel.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-          </div>
-          <!-- Item 3 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Christian.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-          </div>
-          <!-- Item 4 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Patricio.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-          </div>
-          <!-- Item 5 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Enrique.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-          </div>
-          <!-- Item 6 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Eduardo.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-          </div>
-          <!-- Item 7 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <%= image_tag(image_path("Diego.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-          </div>        
+        <!-- Item 1 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <%= image_tag(image_path("AxlChristian.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "tinoco") %>
+        </div>
+        <!-- Item 2 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <%= image_tag(image_path("Axel.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+        </div>
+        <!-- Item 3 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <%= image_tag(image_path("Christian.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+        </div>
+        <!-- Item 4 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <%= image_tag(image_path("Patricio.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+        </div>
+        <!-- Item 5 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <%= image_tag(image_path("Enrique.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+        </div>
+        <!-- Item 6 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <%= image_tag(image_path("Eduardo.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+        </div>
+        <!-- Item 7 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <%= image_tag(image_path("Diego.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
+        </div>     
       </div>
       <!-- Slider indicators -->
       <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
@@ -79,7 +99,6 @@
       </button>
     </div>
   </div>
-
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>

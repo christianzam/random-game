@@ -19,4 +19,8 @@
 #
 class WeeklyResult < ApplicationRecord
   belongs_to :user
+
+  def calculate_total_points
+    user.player_match_results.limit(3).sum(:points)
+  end
 end
