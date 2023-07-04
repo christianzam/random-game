@@ -4,6 +4,7 @@
 #
 #  id                     :bigint           not null, primary key
 #  admin                  :boolean
+#  draw                   :boolean
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  interest               :jsonb

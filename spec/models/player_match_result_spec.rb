@@ -3,6 +3,7 @@
 # Table name: player_match_results
 #
 #  id         :bigint           not null, primary key
+#  draw       :boolean
 #  place      :integer
 #  points     :integer
 #  created_at :datetime         not null
