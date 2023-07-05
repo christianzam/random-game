@@ -1,7 +1,7 @@
-<div class="w-1/2 flex items-center bg-gray-200 justify-center text-3xl text-red-900 py-5">RESULTADOS SEMANA <%= Date.today %></div>
+<div class="w-1/2 flex items-center justify-center text-3xl text-red-900 py-5">RESULTADOS SEMANA <%= Date.today %></div>
 <div class="flex items-center justify-center space-x-5 mb-10 px-5">
-  <div class="w-1/2 mt-10">
-    <div class="relative overflow-x-auto">
+  <div class="w-full mt-10">
+    <div class="relative overflow-x-auto rounded-lg">
       <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -11,6 +11,8 @@
             <th scope="col" class="px-6 py-3">Promedio</th>
             <th scope="col" class="px-6 py-3">Empates</th>
             <th scope="col" class="px-6 py-3">Juegos</th>
+            <th scope="col" class="px-6 py-3">Canastas</th>
+
           </tr>
         </thead>
         <tbody>
@@ -23,13 +25,23 @@
                   </div>
                 </td>
                 <td class="px-6 py-4">
-                  <%= total_place(user) %>
+                  <%= total_place(user).ordinalize %> 
+                  <% if index.zero? %> 
+                    🥇
+                  <% elsif index == 1 %>
+                    🥈
+                  <% elsif index == 2 %>
+                    🥉
+                  <% end %>
                 </td>
                 <td class="px-6 py-4">
                   <%= total_points(user) %>
                 </td>
                 <td class="px-6 py-4">
-                  <%= score_avrg(user).to_f %>%
+                  <div class="mb-1 text-base font-medium dark:text-white"><%= score_avrg(user) %>%</div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                    <div class="bg-<%=bar_color(user)%>-600 h-2.5 rounded-full dark:bg-<%=bar_color(user)%>-500" style="width: <%= score_avrg(user)%>%"></div>
+                  </div>
                 </td>
                 <td class="px-6 py-4">
                   <%= total_draws(user) %>
@@ -37,6 +49,9 @@
                 <td class="px-6 py-4">
                   <%= total_matches(user) %>
                 </td>
+                <td class="px-6 py-4">
+                  <%= total_matches(user) %>
+                </td>                
               </tr>
           <% end %>
         </tbody>
@@ -44,7 +59,7 @@
     </div> 
   </div>
 
-  <div class="w-1/2 flex items-center justify-center">
+  <div class="w-full flex items-center justify-center">
     <%# <div class="flex items-center bg-gray-200 justify-center text-3xl text-red-900 py-5"></div> %>
     <div id="default-carousel" class="relative w-1/2" data-carousel="slide">  <!-- data-carousel="slide"> -->
       <!-- Carousel wrapper -->

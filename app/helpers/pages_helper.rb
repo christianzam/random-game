@@ -21,7 +21,7 @@ module PagesHelper
   end
 
   def score_avrg(user)
-    user.player_match_results.sum(:points) / user.player_match_results.joins(:match).size
+    (user.player_match_results.sum(:points) / user.player_match_results.joins(:match).size) * 10
   end
 
   def total_draws(user)
@@ -29,10 +29,28 @@ module PagesHelper
   end
 
   def total_draws_won(user)
-    user.player_match_results.where(draw: true).size
+    user.player_match_results.where(winning_draw: true).size
   end
 
   def total_matches(user)
     user.player_match_results.size
+  end
+
+  def total_goals(user)
+    return 0 if user.player_match_results.nil?
+
+    user.player_match_results.sum(:points)
+  end
+
+  def bar_color(user)
+    num = (user.player_match_results.sum(:points) / user.player_match_results.joins(:match).size) * 10
+    
+    if (0..35).include?(num)
+      'red'
+    elsif (36..66).include?(num)
+      'purple'
+    elsif (67..100).include?(num)
+      'green'
+    end
   end
 end

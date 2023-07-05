@@ -14,7 +14,7 @@
       <div class="grid grid-cols-3 gap-4 mx-3">
         <div>
           <h2 class="text-lg font-bold mb-2 js-pre-title hidden">Primera rifa</h2>
-          <table class="w-full text-1xl text-left text-gray-500 dark:text-gray-400 pre-shuffle hidden">
+          <table class="w-full text-1xl text-left text-gray-500 dark:text-gray-400 pre-shuffle hidden" style="filter: brightness(.5);">
             <tbody>
               <!-- Display the pre-shuffle results here -->
             </tbody>
@@ -22,7 +22,7 @@
         </div>
         <div>
           <h2 class="text-lg font-bold mb-2 js-test-title hidden">Segunda rifa</h2>
-          <table class="w-full text-2xl text-left text-gray-500 dark:text-gray-400 test-shuffle hidden">
+          <table class="w-full text-2xl text-left text-gray-500 dark:text-gray-400 test-shuffle hidden" style="filter: brightness(.8);">
             <tbody>
               <!-- Display the test-shuffle results here -->
             </tbody>
@@ -37,6 +37,15 @@
           </table>
         </div>
       </div>
+
+      <div class="flex justify-between my-5">
+        <span class="text-base font-medium text-blue-700 dark:text-white" id="startingLabel"></span>
+        <span class="text-sm font-medium text-blue-700 dark:text-white" id="endingLabel"></span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+        <div class="bg-blue-600 h-2.5 rounded-full" id="progressNum"></div>
+      </div>
+            
     </div>
   </div>
 </div>
@@ -53,6 +62,11 @@
   const preTitle = document.querySelector(".js-pre-title");
   const testTitle = document.querySelector(".js-test-title");
   const finalTitle = document.querySelector(".js-final-title");
+  
+  const startingLabel = document.getElementById("startingLabel");
+  const endingLabel = document.getElementById("endingLabel");
+  const progressNum = document.getElementById('progressNum');
+  progressNum.style.width = '0%';
 
   let first_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Diego', 'Erinu'].sort(() => Math.random() - 0.6);
   let second_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Diego', 'Erinu'].sort(() => Math.random() - 0.6);
@@ -72,16 +86,23 @@
       preTitle.classList.remove("hidden");
       displayResults(preShuffleTable, results[shuffleIndex]);
       shuffleButton.textContent = "2nda prueba";
+      startingLabel.innerHTML = 'Primera rifa'
+      progressNum.style.width = '33%';
+
     } else if (shuffleIndex === 1) {
       testShuffleTable.classList.remove("hidden");
       testTitle.classList.remove("hidden");
       displayResults(testShuffleTable, results[shuffleIndex]);
       shuffleButton.textContent = "Rifa Final";
+      progressNum.style.width = '66%';
+
     } else if (shuffleIndex === 2) {
       finalShuffleTable.classList.remove("hidden");
       finalTitle.classList.remove("hidden");
       displayResults(finalShuffleTable, results[shuffleIndex]);
       shuffleButton.style.display = "none";
+      endingLabel.innerHTML = 'Rifa Completa'
+      progressNum.style.width = '100%';
     }
 
     shuffleIndex++;
