@@ -15,34 +15,44 @@ module PagesHelper
   end
 
   def total_points(user)
-    return 0 if user.player_match_results.nil?
+    return 0 if user.player_match_results.nil? || user.player_match_results.empty?
 
     user.player_match_results.sum(:points) * 2
   end
 
   def score_avrg(user)
+    return 0 if user.player_match_results.nil? || user.player_match_results.empty?
+
     (user.player_match_results.sum(:points) / user.player_match_results.joins(:match).size) * 10
   end
 
   def total_draws(user)
+    return 0 if user.player_match_results.nil? || user.player_match_results.empty?
+
     user.player_match_results.where(draw: true).size
   end
 
   def total_draws_won(user)
+    return 0 if user.player_match_results.nil? || user.player_match_results.empty?
+
     user.player_match_results.where(winning_draw: true).size
   end
 
   def total_matches(user)
+    return 0 if user.player_match_results.nil? || user.player_match_results.empty?
+
     user.player_match_results.size
   end
 
   def total_goals(user)
-    return 0 if user.player_match_results.nil?
+    return 0 if user.player_match_results.nil? || user.player_match_results.empty?
 
     user.player_match_results.sum(:points)
   end
 
   def bar_color(user)
+    return 0 if user.player_match_results.nil? || user.player_match_results.empty?
+
     num = (user.player_match_results.sum(:points) / user.player_match_results.joins(:match).size) * 10
     
     if (0..35).include?(num)

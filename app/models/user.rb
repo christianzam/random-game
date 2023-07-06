@@ -30,6 +30,8 @@ class User < ApplicationRecord
   
   has_many :player_match_results, dependent: :destroy
   has_many :weekly_result, dependent: :destroy
+
+  has_one_attached :profile_pic
   
   validates :email, presence: true
   validates :email, uniqueness: true
