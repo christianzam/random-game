@@ -1,4 +1,4 @@
-module DrawsHelper
+module Pages::DrawsHelper
   def print_result(result)
     return 'Result is empty' if result.nil?
     return 'Not enough people' if result.size == 1

@@ -20,23 +20,12 @@
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   <div class="flex items-center">
-                    <% if user.profile_pic.attached? %>
-                      <%= image_tag user&.profile_pic, class: "h-8 w-8 rounded-full", alt: "Avatar" %>
-                    <% else %>
-                      <i class="fa-solid fa-user"></i>
-                    <% end %>
+                    <%= user_profile_pic(user, class_name='h-8 w-8 rounded-full') %>
                     <span class="ml-2"><%= user.name %></span>
                   </div>
                 </td>
                 <td class="px-6 py-4">
-                  <%= total_place(user).ordinalize %> 
-                  <% if index.zero? %> 
-                    🥇
-                  <% elsif index == 1 %>
-                    🥈
-                  <% elsif index == 2 %>
-                    🥉
-                  <% end %>
+                  <%= place_and_medal(user) %>
                 </td>
                 <td class="px-6 py-4">
                   <%= total_points(user) %>
@@ -44,7 +33,7 @@
                 <td class="px-6 py-4">
                   <div class="mb-1 text-base font-medium dark:text-white"><%= score_avrg(user) %>%</div>
                   <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-                    <div class="bg-<%=bar_color(user)%>-600 h-2.5 rounded-full dark:bg-<%=bar_color(user)%>-500" style="width: <%= score_avrg(user)%>%"></div>
+                    <%= score_bar_div(user) %>
                   </div>
                 </td>
                 <td class="px-6 py-4">

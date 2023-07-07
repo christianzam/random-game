@@ -2,10 +2,11 @@
 #
 # Table name: matches
 #
-#  id         :bigint           not null, primary key
-#  date       :date
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :bigint           not null, primary key
+#  date        :date
+#  week_number :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 require 'rails_helper'
 

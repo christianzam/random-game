@@ -29,6 +29,7 @@ class PlayerMatchResult < ApplicationRecord
   validate :points_not_nil
 
   after_create :assign_place
+  after_create :update_weekly_score
 
   def points_not_nil
     if points.nil?
@@ -45,5 +46,12 @@ class PlayerMatchResult < ApplicationRecord
         player_match_result.update(place: index)
       end
     end
+  end
+
+  def update_weekly_score
+    week_number = match.week_number
+    weekly_score = user.weekly_scores.find_or_initialize_by(week_number: week_number)
+    weekly_score.total_points = user.player_match_results.joins(:match).where('matches.week_number = ?', week_number).sum(:points)
+    weekly_score.save
   end
 end
