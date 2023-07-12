@@ -11,7 +11,11 @@ class PagesController < ApplicationController
   end
 
   def home
-    @users = User.includes(:player_match_results).order('player_match_results.points DESC')
+    # @users = WeeklyScore.where(week_number: Date.current.strftime('%U').to_i - 1).collect{ |weekly_score| weekly_score.user }.flatten.uniq
+    # @users = User.includes(:player_match_results).order('player_match_results.points DESC')
+    ordered_place_pmr = PlayerMatchResult.order(points: :desc)
+    pmr_unique_by_user = ordered_place_pmr.uniq{ |pmr| pmr.user_id }
+    @users = pmr_unique_by_user.collect{ |pmr| pmr.user }
   end
 
   def draw; end

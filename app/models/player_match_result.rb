@@ -41,12 +41,17 @@ class PlayerMatchResult < ApplicationRecord
 
   def assign_place
     if match.player_match_results.count == User.count
+      self.update(points: self.points + 1) if self.draw == true
+  
       ordered_results = match.player_match_results.order(points: :desc)
-      ordered_results.each.with_index(1) do |player_match_result, index|
-        player_match_result.update(place: index)
+      ranked_results = ordered_results.rank(:points, with_same: :skip)
+  
+      ranked_results.each do |player_match_result|
+        player_match_result.update(place: player_match_result.rank)
       end
     end
   end
+  
 
   def update_weekly_score
     week_number = match.week_number
