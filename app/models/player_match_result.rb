@@ -2,14 +2,16 @@
 #
 # Table name: player_match_results
 #
-#  id         :bigint           not null, primary key
-#  draw       :boolean
-#  place      :integer
-#  points     :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  match_id   :bigint           not null
-#  user_id    :bigint           not null
+#  id          :bigint           not null, primary key
+#  draw        :boolean          default(FALSE)
+#  draw_with   :string
+#  place       :integer
+#  points      :integer
+#  win_by_draw :boolean          default(FALSE)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  match_id    :bigint           not null
+#  user_id     :bigint           not null
 #
 # Indexes
 #
@@ -55,7 +57,7 @@ class PlayerMatchResult < ApplicationRecord
 
   def update_weekly_score
     week_number = match.week_number
-    weekly_score = user.weekly_scores.find_or_initialize_by(week_number: week_number)
+    weekly_score = user.player_weekly_scores.find_or_initialize_by(week_number: week_number)
     weekly_score.total_points = user.player_match_results.joins(:match).where('matches.week_number = ?', week_number).sum(:points)
     weekly_score.save
   end

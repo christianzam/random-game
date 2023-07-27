@@ -13,13 +13,15 @@ SEED_PASSWORD = 'Pass123'.freeze
 if Rails.env.development?
 
   puts 'Seeds starting...'
-  puts 'Destroying previous objects...'
 
+  puts 'Destroying previous Users...'
   User.destroy_all
+  puts 'Users destroyed...'
 
   chris = User.create!(password: SEED_PASSWORD, email: 'chris@mail.com', name: 'Christian', last_name: 'Zamora', nick_name: 'Chris', admin: true)
   players = %w(Eduardo Axel AxlChristian Enrique Patricio Diego)
 
+  puts '...Creating Users'
   players.each_with_index do |player, index|
     nicknames = %w(Lalo Erinu Tinoco Kike Pato Diego)
 

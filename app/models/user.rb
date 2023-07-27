@@ -4,7 +4,6 @@
 #
 #  id                     :bigint           not null, primary key
 #  admin                  :boolean
-#  draw                   :boolean
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  interest               :jsonb
@@ -30,7 +29,7 @@ class User < ApplicationRecord
   
   has_many :player_match_results, dependent: :destroy
   # has_many :weekly_result, dependent: :destroy
-  has_many :weekly_scores, dependent: :destroy
+  has_many :player_weekly_scores, dependent: :destroy
 
   has_one_attached :profile_pic
   

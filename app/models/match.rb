@@ -2,11 +2,14 @@
 #
 # Table name: matches
 #
-#  id          :bigint           not null, primary key
-#  date        :date
-#  week_number :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id            :bigint           not null, primary key
+#  date          :date
+#  day_number    :integer
+#  players_count :integer          default(0)
+#  week_number   :integer
+#  winner        :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 class Match < ApplicationRecord
   has_many :player_match_results, dependent: :destroy

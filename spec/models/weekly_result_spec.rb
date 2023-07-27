@@ -2,12 +2,14 @@
 #
 # Table name: weekly_results
 #
-#  id           :bigint           not null, primary key
-#  place        :integer
-#  total_points :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  user_id      :bigint           not null
+#  id            :bigint           not null, primary key
+#  matches_count :integer
+#  place         :integer
+#  total_points  :integer
+#  week_number   :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  user_id       :bigint           not null
 #
 # Indexes
 #
