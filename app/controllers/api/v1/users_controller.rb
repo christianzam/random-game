@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   include UsersControllerConcern
 
-  before_action :check_password
+  # before_action :check_password
   before_action :load_user, only: %i(show update destroy)
   before_action :check_params, only: :update
 
