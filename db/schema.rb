@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_07_072042) do
+ActiveRecord::Schema.define(version: 2023_08_10_052212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,38 +43,46 @@ ActiveRecord::Schema.define(version: 2023_07_07_072042) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "matches", force: :cascade do |t|
-    t.date "date"
-    t.integer "week_number"
-    t.integer "day_number"
-    t.integer "players_count", default: 0
-    t.string "winner"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "player_match_results", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "match_id", null: false
-    t.boolean "draw", default: false
-    t.boolean "win_by_draw", default: false
-    t.string "draw_with"
-    t.integer "points"
+  create_table "game_player_results", force: :cascade do |t|
     t.integer "place"
+    t.integer "points"
+    t.boolean "draw"
+    t.boolean "win_by_draw"
+    t.string "draw_with"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["match_id"], name: "index_player_match_results_on_match_id"
-    t.index ["user_id"], name: "index_player_match_results_on_user_id"
+    t.bigint "game_result_id", null: false
+    t.index ["game_result_id"], name: "index_game_player_results_on_game_result_id"
   end
 
-  create_table "player_weekly_scores", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "week_number"
-    t.integer "total_points", default: 0
-    t.integer "place", default: 0
+  create_table "game_results", force: :cascade do |t|
+    t.jsonb "places"
+    t.string "winner"
+    t.integer "draws"
+    t.integer "winners_by_draws"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id", "week_number"], name: "index_player_weekly_scores_on_user_id_and_week_number", unique: true
+    t.bigint "game_id", null: false
+    t.index ["game_id"], name: "index_game_results_on_game_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "week_number"
+    t.date "date"
+    t.integer "number_of_players"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "game_result_id", null: false
+    t.index ["game_result_id"], name: "index_games_on_game_result_id"
+  end
+
+  create_table "tournaments", force: :cascade do |t|
+    t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "period_tournament"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -94,20 +102,9 @@ ActiveRecord::Schema.define(version: 2023_07_07_072042) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "weekly_results", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "place"
-    t.integer "total_points"
-    t.integer "week_number"
-    t.integer "matches_count"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_weekly_results_on_user_id"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "player_match_results", "matches"
-  add_foreign_key "player_match_results", "users"
-  add_foreign_key "weekly_results", "users"
+  add_foreign_key "game_player_results", "game_results"
+  add_foreign_key "game_results", "games"
+  add_foreign_key "games", "game_results"
 end

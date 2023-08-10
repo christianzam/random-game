@@ -1,7 +1,7 @@
-<div class="w-1/2 flex items-center bg-gray-200 justify-center text-3xl text-red-900 py-5">RESULTADOS SEMANA <%= Date.today %></div>
+<div class="w-1/2 flex items-center justify-center text-3xl text-red-900 py-5">RESULTADOS SEMANA <%= Date.today %></div>
 <div class="flex items-center justify-center space-x-5 mb-10 px-5">
-  <div class="w-1/2 mt-10">
-    <div class="relative overflow-x-auto">
+  <div class="w-full mt-10">
+    <div class="relative overflow-x-auto rounded-lg">
       <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -10,39 +10,49 @@
             <th scope="col" class="px-6 py-3">Puntos</th>
             <th scope="col" class="px-6 py-3">Promedio</th>
             <th scope="col" class="px-6 py-3">Empates</th>
+            <th scope="col" class="px-6 py-3">Juegos</th>
+            <th scope="col" class="px-6 py-3">Canastas</th>
+
           </tr>
         </thead>
         <tbody>
-          <% @matches.each do |match| %>
-            <% match.player_match_results.order(points: :desc).each_with_index do |player_match_result, index| %>
+          <% @users.each_with_index do |user, index| %>
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   <div class="flex items-center">
-                    <%= image_tag(image_path("#{player_match_result.user.name}.jpg"), class: "h-8 w-8 rounded-full", alt: "Avatar") %>
-                    <span class="ml-2"><%= player_match_result.user.name %></span>
+                    <%= user_profile_pic(user, class_name='h-8 w-8 rounded-full') %>
+                    <span class="ml-2"><%= user.name %></span>
                   </div>
                 </td>
                 <td class="px-6 py-4">
-                  <%= index + 1 %>
+                  <%= place_and_medal(user) %>
                 </td>
                 <td class="px-6 py-4">
-                  <%= player_match_result.points * 2 %>
+                  <%= total_points(user) %>
                 </td>
                 <td class="px-6 py-4">
-                  <!-- Add average calculation logic here -->
+                  <div class="mb-1 text-base font-medium dark:text-white"><%= score_avrg(user) %>%</div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                    <%= score_bar_div(user) %>
+                  </div>
                 </td>
                 <td class="px-6 py-4">
-                  <!-- Add draw calculation logic here -->
+                  <%= total_draws(user) %>
                 </td>
+                <td class="px-6 py-4">
+                  <%= total_matches(user) %>
+                </td>
+                <td class="px-6 py-4">
+                  <%= total_matches(user) %>
+                </td>                
               </tr>
-            <% end %>
           <% end %>
         </tbody>
       </table>
     </div> 
   </div>
 
-  <div class="w-1/2 flex items-center justify-center">
+  <div class="w-full flex items-center justify-center">
     <%# <div class="flex items-center bg-gray-200 justify-center text-3xl text-red-900 py-5"></div> %>
     <div id="default-carousel" class="relative w-1/2" data-carousel="slide">  <!-- data-carousel="slide"> -->
       <!-- Carousel wrapper -->
