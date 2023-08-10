@@ -33,6 +33,7 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'httparty'
 gem 'simple_form'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'pry-byebug'
