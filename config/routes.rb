@@ -6,9 +6,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  # authenticated :user do
-  #   root to: 'pages#home', as: :authenticated_root
-  # end
+  namespace :api do
+    namespace :v1 do
+      resources :users
+    end
+  end
 
   get 'pages/home', to: 'pages#home'
   get 'pages/draw', to: 'pages#draw'
