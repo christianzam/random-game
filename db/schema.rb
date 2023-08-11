@@ -72,8 +72,6 @@ ActiveRecord::Schema.define(version: 2023_08_10_052212) do
     t.integer "number_of_players"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "game_result_id", null: false
-    t.index ["game_result_id"], name: "index_games_on_game_result_id"
   end
 
   create_table "tournaments", force: :cascade do |t|
@@ -106,5 +104,4 @@ ActiveRecord::Schema.define(version: 2023_08_10_052212) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "game_player_results", "game_results"
   add_foreign_key "game_results", "games"
-  add_foreign_key "games", "game_results"
 end
