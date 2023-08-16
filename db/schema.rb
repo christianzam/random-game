@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_10_052212) do
+ActiveRecord::Schema.define(version: 2023_08_16_062516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,22 @@ ActiveRecord::Schema.define(version: 2023_08_10_052212) do
     t.integer "number_of_players"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "tournament_id"
+    t.index ["tournament_id"], name: "index_games_on_tournament_id"
+  end
+
+  create_table "player_game_results", force: :cascade do |t|
+    t.boolean "draw"
+    t.integer "draw_with"
+    t.integer "place"
+    t.integer "points"
+    t.boolean "win_by_draw"
+    t.bigint "user_id", null: false
+    t.bigint "game_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_player_game_results_on_game_id"
+    t.index ["user_id"], name: "index_player_game_results_on_user_id"
   end
 
   create_table "tournaments", force: :cascade do |t|
@@ -104,4 +120,7 @@ ActiveRecord::Schema.define(version: 2023_08_10_052212) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "game_player_results", "game_results"
   add_foreign_key "game_results", "games"
+  add_foreign_key "games", "tournaments"
+  add_foreign_key "player_game_results", "games"
+  add_foreign_key "player_game_results", "users"
 end

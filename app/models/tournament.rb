@@ -11,5 +11,5 @@
 #  updated_at        :datetime         not null
 #
 class Tournament < ApplicationRecord
-  
+  has_many :games
 end

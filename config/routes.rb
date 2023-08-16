@@ -15,13 +15,25 @@ Rails.application.routes.draw do
   get 'pages/home', to: 'pages#home'
   get 'pages/draw', to: 'pages#draw'
 
-  get 'matches/new'
-  get 'matches/create'
-  get 'matches/:id/edit_points', to: 'matches#edit_points', as: 'edit_points_match'
-  resources :matches do
+  get 'games/new'
+  get 'games/create'
+  get 'games/:id/edit_points', to:'games#edit_points', as: 'edit_points_match'
+
+  resources :games do
     member do
       get 'edit_points'
       patch 'update_points'
     end
   end
+
+  # get 'matches/new'
+  # get 'matches/create'
+  # get 'matches/:id/edit_points', to: 'matches#edit_points', as: 'edit_points_match'
+
+  # resources :matches do
+  #   member do
+  #     get 'edit_points'
+  #     patch 'update_points'
+  #   end
+  # end
 end
