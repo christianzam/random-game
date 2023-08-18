@@ -17,6 +17,22 @@ class GamesController < ApplicationController
   end
 
   def create
+    # @match = Match.where(date: DATE).last
+
+    # if @match.nil?
+    #   @match = Match.new(match_params)
+    #   @match.player_match_results.build(user_id: current_user.id) if @match.player_match_results.empty?
+    # else
+    #   @match.assign_attributes(match_params)
+    #   @match.player_match_results.build(user_id: current_user.id) if @match.player_match_results.empty?
+    # end
+
+    # if @match.save
+    #   redirect_to matches_new_path, notice: "Los puntos se ingresaron correctamente"
+    # else
+    #   redirect_to matches_new_path, alert: "Error: #{@match.errors.full_messages.first}"
+    # end
+    
     @game = Game.new(game_params)
     @game.player_game_results.build(user_id: current_user.id) if @game.player_game_results.empty?
 
