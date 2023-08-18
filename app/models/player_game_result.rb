@@ -27,7 +27,7 @@ class PlayerGameResult < ApplicationRecord
   belongs_to :user
   belongs_to :game
 
-  validates :user_id, uniqueness: { scope: :match_id }
+  validates :user_id, uniqueness: { scope: :game_id }
   validate :points_not_nil
 
   after_create :assign_place
@@ -44,7 +44,7 @@ class PlayerGameResult < ApplicationRecord
     if game.player_game_results.count == User.count
       self.update(points: self.points + 1) if self.draw == true
   
-      ordered_results = game.player_match_results.order(points: :desc)
+      ordered_results = game.player_game_results.order(points: :desc)
       ranked_results = ordered_results.rank(:points, with_same: :skip)
   
       ranked_results.each do |player_game_result|

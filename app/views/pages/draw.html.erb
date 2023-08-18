@@ -51,7 +51,6 @@
 </div>
 
 
-
 <script>
   document.addEventListener("DOMContentLoaded", function() {
   const shuffleButton = document.getElementById("shuffleButton");
@@ -68,9 +67,9 @@
   const progressNum = document.getElementById('progressNum');
   progressNum.style.width = '0%';
 
-  let first_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Diego', 'Erinu'].sort(() => Math.random() - 0.6);
-  let second_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Diego', 'Erinu'].sort(() => Math.random() - 0.6);
-  let third_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Diego', 'Erinu'].sort(() => Math.random() - 0.6);
+  let first_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Manuel', 'Majo', 'BackEnd Jr', 'El Abogado', 'RockstarDiego'].sort(() => Math.random() - 0.6);
+  let second_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Manuel', 'Majo', 'BackEnd Jr', 'El Abogado', 'RockstarDiego'].sort(() => Math.random() - 0.6);
+  let third_shuffle = ['Lalo', 'Pato', 'Chris', 'Kike', 'Manuel', 'Majo', 'BackEnd Jr', 'El Abogado', 'RockstarDiego'].sort(() => Math.random() - 0.6);
 
   const results = [
     first_shuffle,
@@ -85,7 +84,7 @@
       preShuffleTable.classList.remove("hidden");
       preTitle.classList.remove("hidden");
       displayResults(preShuffleTable, results[shuffleIndex]);
-      shuffleButton.textContent = "2nda prueba";
+      shuffleButton.textContent = "2nda Rifa";
       startingLabel.innerHTML = 'Comienzo'
       progressNum.style.width = '33%';
 
