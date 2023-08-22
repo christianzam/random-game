@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class GamesController < ApplicationController
+  before_action :on_going_game, only: %i[new create show edit_points update_points]
   before_action :set_available_users, only: %i[new edit_points]
-  before_action :set_editable_game, only: %i[new edit_points update_points]
-  before_action :set_existing_game, only: %i[new show]
+  after_action :assign_place, only: %i[update_points]
 
   DATE = Time.zone.now - 6.hour
 
@@ -12,39 +12,34 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = Game.new
-    @game.player_game_results.build
+    if @on_going_game.nil? || @on_going_game.player_game_results.present?
+      @game = Game.new
+      @game.player_game_results.build
+    end
   end
 
-  def create
-    # @match = Match.where(date: DATE).last
-
-    # if @match.nil?
-    #   @match = Match.new(match_params)
-    #   @match.player_match_results.build(user_id: current_user.id) if @match.player_match_results.empty?
-    # else
-    #   @match.assign_attributes(match_params)
-    #   @match.player_match_results.build(user_id: current_user.id) if @match.player_match_results.empty?
-    # end
-
-    # if @match.save
-    #   redirect_to matches_new_path, notice: "Los puntos se ingresaron correctamente"
-    # else
-    #   redirect_to matches_new_path, alert: "Error: #{@match.errors.full_messages.first}"
-    # end
-    
-    @game = Game.new(game_params)
-    @game.player_game_results.build(user_id: current_user.id) if @game.player_game_results.empty?
-
-    if @game.save
-      redirect_to games_new_path, notice: 'Los puntos se ingresaron correctamente'
+  def create    
+    if @on_going_game.nil?
+      @game = Game.new(game_params)
+      @game.player_game_results.build(user_id: current_user.id) if @game.player_game_results.empty?
+      if @game.save
+        redirect_to games_new_path, notice: 'Los puntos se ingresaron correctamente'
+      else
+        redirect_to games_new_path, notice: "Error: #{ @game.errors.full_messages.to_sentence }"
+      end
     else
-      redirect_to games_new_path, notice: "Error: #{@game.errors.full_messages.to_sentence}"
+      @on_going_game.assign_attributes(game_params)
+      @on_going_game.player_game_results.build(user_id: current_user.id) if @on_going_game.player_game_results.empty?
+      if @on_going_game.save
+        redirect_to games_new_path, notice: 'Los puntos se ingresaron correctamente'
+      else
+        redirect_to games_new_path, notice: "Error: #{ @on_going_game.errors.full_messages.to_sentence }"
+      end
     end
   end
 
   def show
-    @game = @existing_game
+    @game = @on_going_game
   end
 
   def edit_points
@@ -52,10 +47,10 @@ class GamesController < ApplicationController
   end
 
   def update_points
-    if @game_to_edit.update(game_params)
+    if @on_going_game.update(game_params)
       redirect_to games_new_path, notice: 'Los puntos se ingresaron correctamente'
     else
-      flash.now[:alert] = "Error al ingresar puntos: #{@game_to_edit.errors.full_messages.to_sentence}"
+      flash.now[:alert] = "Error al ingresar puntos: #{@on_going_game.errors.full_messages.to_sentence}"
       render :edit_points
     end
   end
@@ -63,7 +58,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:date, player_game_results_attributes: %i[id user_id points])
+    params.require(:game).permit(:date, player_game_results_attributes: %i[id user_id points draw win_by_draw draw_with])
   end
 
   def set_available_users
@@ -72,16 +67,20 @@ class GamesController < ApplicationController
     @available_users = User.where.not(id: logged_users_by_date)
   end
 
-  def set_existing_game
+  def on_going_game
     return if Game.all.empty?
 
-    @existing_game = Game.find_by(date: DATE)
+    @on_going_game = Game.find_by(date: DATE)
   end
 
-  def set_editable_game
-    return if Game.all.empty?
+  def assign_place
+    return 'Missing players results' unless @on_going_game.player_game_results.count == User.count
 
-    @game_to_edit = Game.where(date: DATE).last
-    @game_to_edit.date = DATE if @game_to_edit.present?
+    ordered_results = @on_going_game.player_game_results.order(points: :desc)
+
+    ordered_results.each.with_index(1) do |player_game_result, index|
+      player_game_result.update(points: player_game_result.points + 1) if player_game_result.win_by_draw
+      player_game_result.update(place: index )
+    end
   end
 end

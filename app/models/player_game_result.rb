@@ -30,27 +30,11 @@ class PlayerGameResult < ApplicationRecord
   validates :user_id, uniqueness: { scope: :game_id }
   validate :points_not_nil
 
-  after_create :assign_place
+  # after_create :assign_place
 
   def points_not_nil
     if points.nil?
       errors.add(:points, "no puede estar en blanco")
     end
   end
-
-  private
-
-  def assign_place
-    if game.player_game_results.count == User.count
-      self.update(points: self.points + 1) if self.draw == true
-  
-      ordered_results = game.player_game_results.order(points: :desc)
-      ranked_results = ordered_results.rank(:points, with_same: :skip)
-  
-      ranked_results.each do |player_game_result|
-        player_game_result.update(place: player_game_result.rank)
-      end
-    end
-  end
-
 end

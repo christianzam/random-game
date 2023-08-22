@@ -4,12 +4,16 @@
     <div class="mt-6">
       <% if @available_users.any? %>
         <%= simple_form_for @game, url: games_path, html: { class: "space-y-4" } do |form| %>
-          <div>
-            <label for="date" class="block text-lg font-bold text-white">
-              Fecha
-            </label>
-            <%= form.input :date, label: false, input_html: { class: 'rounded-lg', type: 'date' } %>
-          </div>
+          <% if @on_going_game %>
+            <%= form.hidden_field :date, value: @on_going_game.date %>
+          <% else %>
+            <div>
+              <label for="date" class="block text-lg font-bold text-white">
+                Fecha
+              </label>
+              <%= form.input :date, label: false, input_html: { class: 'rounded-lg', type: 'date' } %>
+            </div>
+          <% end %>
           <div>
             <%= form.fields_for :player_game_results do |player_fields| %>
               <h2 class="text-lg font-bold text-white mt-3">Jugador</h2>
@@ -28,13 +32,13 @@
         <div class="flex min-h-full flex-col justify-center">
           <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <h1 class="text-white text-2xl font-bold mb-6">
-              Se han ingresado los puntos de todos los jugadores
+              Se han ingresado los puntos de todos los jugadores en este juego
             </h1>
-            <%= link_to 'Ver resultados -->', game_path(@existing_game), class: "text-white text-sm font-medium mt-4 block text-center" %>
+            <%= link_to 'Ver resultados -->', game_path(@on_going_game), class: "text-white text-sm font-medium mt-4 block text-center" %>
           </div>
         </div>
         <h2>
-          <%= link_to 'Editar puntos -->', edit_points_game_path(@game_to_edit), class: "text-white text-sm font-medium mt-4 block text-center" %>
+          <%= link_to 'Editar puntos -->', edit_points_game_path(@on_going_game), class: "text-white text-sm font-medium mt-4 block text-center" %>
         </h2>
       <% end %>
     </div>

@@ -8,8 +8,10 @@
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="px-6 py-3">Nombre</th>
+                <th scope="col" class="px-6 py-3"></th>
                 <th scope="col" class="px-6 py-3">Puntos</th>
+                <th scope="col" class="px-6 py-3">Empate</th>
+                <th scope="col" class="px-6 py-3">Empate Ganado</th>
                 <th scope="col" class="px-6 py-3">Lugar</th>
               </tr>
           </thead>
@@ -20,7 +22,13 @@
                   <%= player_game_result.user.name %>
                 </td>
                 <td class="px-6 py-4">
-                  <%= (player_game_result.points)*2 %>
+                  <%= player_game_result.points %>
+                </td>
+                <td class="px-6 py-4">
+                  <%= player_game_result.draw %>
+                </td>
+                <td class="px-6 py-4">
+                  <%= player_game_result.win_by_draw %>
                 </td>
                 <td class="px-6 py-4">
                   <%= index %>
@@ -29,6 +37,11 @@
             <% end %>
           </tbody>
         </table>
+        <div>
+          <h2>
+            <%= link_to 'Editar puntos -->', edit_points_game_path(@on_going_game), class: "text-black text-sm font-medium mt-4 block text-center" %>
+          </h2>
+        </div>
       <% else %>
         <div class="flex items-center justify-center mb-5 text-red-900 text-2xl font-bold leading-9 tracking-tight">
           Aun no hay partida
