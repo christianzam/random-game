@@ -25,13 +25,13 @@
                   <%= player_game_result.points %>
                 </td>
                 <td class="px-6 py-4">
-                  <%= player_game_result.draw %>
+                  <%= boolean_answer player_game_result.draw %>
                 </td>
                 <td class="px-6 py-4">
-                  <%= player_game_result.win_by_draw %>
+                  <%= boolean_answer player_game_result.win_by_draw %>
                 </td>
                 <td class="px-6 py-4">
-                  <%= index %>
+                  <%= places_icons index %>
                 </td>
               </tr>
             <% end %>
