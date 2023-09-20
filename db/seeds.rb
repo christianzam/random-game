@@ -19,11 +19,11 @@ if Rails.env.development?
   puts 'Users destroyed...'
 
   chris = User.create!(password: SEED_PASSWORD, email: 'chris@mail.com', name: 'Christian', last_name: 'Zamora', nick_name: 'Chris', admin: true)
-  players = %w(Eduardo Axel AxlChristian Enrique Patricio Diego)
+  players = %w(Eduardo Axel AxlChristian Enrique Patricio Diego Sergio Majo Manuel)
 
   puts '...Creating Users'
   players.each_with_index do |player, index|
-    nicknames = %w(Lalo Erinu Tinoco Kike Pato Diego)
+    nicknames = %w(Lalo Tinoco Kike Pato Manuel Diego Sergio Majo)
 
     user = User.create_with(
       password: SEED_PASSWORD,

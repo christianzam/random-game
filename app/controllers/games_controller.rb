@@ -79,7 +79,7 @@ class GamesController < ApplicationController
     ordered_results = @on_going_game.player_game_results.order(points: :desc)
 
     ordered_results.each.with_index(1) do |player_game_result, index|
-      player_game_result.update(points: player_game_result.points + 1) if player_game_result.win_by_draw
+      # player_game_result.update(points: player_game_result.points + 1) if player_game_result.win_by_draw
       player_game_result.update(place: index )
     end
   end
