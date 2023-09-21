@@ -1,0 +1,21 @@
+<% @player_stats.each do |pl_stat|%>
+  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <%= pl_stat.user.name %>
+      </th>
+      <% pl_stat.match_stats.all.each do |match| %>
+        <td class="px-6 py-4">
+            <%= match.points %>
+        </td>
+        <td class="px-6 py-4">
+            <%= match.position %>
+        </td>
+        <td class="px-6 py-4">
+            <%= false %>
+        </td>
+        <td class="px-6 py-4">
+          <%= pl_stat.id %>
+        </td>
+      <% end %>
+  </tr>
+<% end %>

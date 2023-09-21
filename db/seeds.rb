@@ -13,51 +13,26 @@ SEED_PASSWORD = 'Pass123'.freeze
 if Rails.env.development?
 
   puts 'Seeds starting...'
-  puts 'Destroying previous objects...'
 
+  puts 'Destroying previous Users...'
   User.destroy_all
-  Member.destroy_all
-  Gift.destroy_all
-  Group.destroy_all
+  puts 'Users destroyed...'
 
-  chris = User.create!(password:'kiwi123', email: 'chris@mail.com', name: 'Christian', admin: true)
+  chris = User.create!(password: SEED_PASSWORD, email: 'chris@mail.com', name: 'Christian', last_name: 'Zamora', nick_name: 'Chris', admin: true)
+  players = %w(Eduardo Axel AxlChristian Enrique Patricio Diego Sergio Majo Manuel)
 
-  (1..3).each do |i|
+  puts '...Creating Users'
+  players.each_with_index do |player, index|
+    nicknames = %w(Lalo Tinoco Kike Pato Manuel Diego Sergio Majo)
+
     user = User.create_with(
       password: SEED_PASSWORD,
       admin: false,
-      name: Faker::Name.first_name,
+      name: player,
       last_name: Faker::Name.last_name,
-      nick_name: Faker::Fantasy::Tolkien.character,
+      nick_name: nicknames[index],
       interest: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
-    ).find_or_create_by!(email: "#{Faker::Name.first_name}@mail.com")
+    ).find_or_create_by!(email: "#{player}@mail.com")
   end
-
-  (1..6).each do |i|
-    faker_name = Faker::Name.first_name
-
-    Member.create!(
-      email: "#{faker_name}#{i+i}@seed.com",
-      nickname: "#{faker_name}",
-      interests: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
-    )
-  end
-
-  10.times do
-    Gift.create!(
-      name: Faker::Appliance.equipment,
-      description: "#{Faker::Appliance.brand} #{Faker::Lorem.paragraph }",
-      price: Faker::Commerce.price
-    )
-  end
-
-  names = Member.all.collect{|m| m.nickname}
-
-  Group.create!(
-    name: 'Office',
-    members: names.flatten
-  )
-
-  Member.all.update(group_id: Group.last.id)
   puts 'seed file ran succesfully!, bye'
 end

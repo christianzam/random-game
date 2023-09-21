@@ -1,0 +1,49 @@
+<div class="space-y-8">
+  <% if @matches.empty? %>
+    <div class="flex items-center justify-center mb-5 text-red-900 text-2xl font-bold leading-9 tracking-tight">
+      No hay ningun partido jugado
+    </div>
+  <% end %>
+  <% @matches.each_slice(2) do |matches_batch| %>
+    <div class="bg-green-900 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="mt-6">
+          <div class="grid grid-cols-2 gap-8">
+            <% matches_batch.each do |match| %>
+              <div>
+                <h1 class="text-white text-2xl font-bold mb-6"><%= match.date.strftime("%A %d %B %Y")%></h1>
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <!-- Table header -->
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" class="px-6 py-3">Nombre</th>
+                      <th scope="col" class="px-6 py-3">Canastas</th>
+                      <th scope="col" class="px-6 py-3">Lugar</th>
+                    </tr>
+                  </thead>
+                  <!-- Table body -->
+                  <tbody>
+                    <% match.player_match_results.order(points: :desc).each.with_index(1) do |player_match_result, index| %>
+                      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                          <%= player_match_result.user.name %>
+                        </td>
+                        <td class="px-6 py-4">
+                          <%= (player_match_result.points)*2 %>
+                        </td>
+                        <td class="px-6 py-4">
+                          <%= index %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>                  
+                </table>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+

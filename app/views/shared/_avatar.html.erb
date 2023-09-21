@@ -1,0 +1,24 @@
+<% if current_user.profile_pic.attached? %>
+  <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer" src="<%= url_for(current_user.profile_pic) %>" alt="User dropdown">
+<% else %>
+  <i id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-15 h-15 rounded-full cursor-pointer fa-solid fa-user"></i>
+<% end %>
+
+<!-- Dropdown menu -->
+<div id="userDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+    <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+      <div><%= current_user.name %></div>
+      <div class="font-medium truncate"><%= current_user.email %></div>
+    </div>
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+      <li>
+        <%= link_to 'Editar perfil', edit_user_registration_path, class:"block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mis estadisticas</a>
+      </li>
+    </ul>
+    <div class="py-1">
+      <%= button_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white' %>
+    </div>
+</div>

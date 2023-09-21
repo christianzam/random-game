@@ -2,12 +2,13 @@
   <%= link_to pages_home_path, class: "text-3xl font-bold leading-none" do %>
     <div class="flex flex-wrap justify-center">
       <div class="w-6/12 sm:w-4/12">
-        <% unless current_page?(controller: 'pages', action: 'home') %>
+        <% unless controller_name == 'pages' && action_name == 'home' %>
+        <!-- # current_page?(controller: 'pages', action: 'home') %> -->
           <i class="fa-solid fa-house" style="color:rgb(127 29 29);"></i>
         <% end %>
       </div>
     </div>
-  <% end %>  
+  <% end %>
   <div class="lg:hidden">
     <button class="navbar-burger flex items-center text-blue-600 p-3">
       <svg class="block h-4 w-4 fill-current">
@@ -17,30 +18,34 @@
   </div>
   <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
     <li>
-      <%= link_to 'Groups', groups_path, class: "text-sm text-blue-600 font-bold" %>
+      <%= link_to 'Todos los Resultados', '#', class: "text-sm text-blue-600 font-bold" %>
     </li>
-    <li class="text-gray-300">
-      |
-    </li>
+    <li class="text-gray-300">|</li>
     <li>
-      <%= link_to 'Secret Santas', members_path, class: "text-sm text-blue-600 font-bold" %>
+      <%= link_to 'Partidos Jugados', games_path, class: "text-sm text-blue-600 font-bold" %>
     </li>
-    <li class="text-gray-300">
-      |
+    <li class="text-gray-300">|</li>
+    <li>
+      <%= link_to 'Ingresar puntos', games_new_path, class: "text-sm text-blue-600 font-bold hover:text-gray-500" %>
     </li>
-      <%= link_to 'Gifts', gifts_path, class: "text-sm text-gray-400 hover:text-gray-500" %>
+    <li class="text-gray-300">|</li>
+    <li>
+      <%= link_to 'Rifa', pages_draw_path, class: "text-sm text-blue-600 font-bold hover:text-gray-500" %>
     </li>
-    <li class="text-gray-300">
-      |
+    <li class="text-gray-300">|</li>
+    <li>
+      <%= link_to 'Mi Perfil', '#', class: "text-sm text-blue-600 font-bold hover:text-gray-500" %>
     </li>
-    <li><a class="text-sm text-gray-400 hover:text-gray-500" href="#">My profile</a></li>
-    <li class="text-gray-300">
-      |
+    <li class="text-gray-300">|</li>
+    <li>
+      <%= link_to 'Reglas', '#', class: "text-sm text-blue-600 font-bold hover:text-gray-500" %>
     </li>
-    <li><a class="text-sm text-gray-400 hover:text-gray-500" href="https://www.handshq.com/">About</a></li>
   </ul>
-  <% if signed_in? %>
-    <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-red-900 hover:bg-red-700 text-sm text-white font-bold  rounded transition duration-200" %>
+  <% if signed_in? %>   
+    <div class="lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6">
+      <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" %>
+      <%= render 'shared/avatar' %>
+    </div>
   <% else %>
     <%= button_to 'Sign in', new_user_session_path, class: "hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" %>
     <%= button_to 'Sign up', new_user_registration_path, class: "hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" %>
@@ -54,7 +59,8 @@
       <a class="mr-auto text-3xl font-bold leading-none" href="/">
         <div class="flex flex-wrap justify-center">
           <div class="w-6/12 sm:w-4/12">
-            <% unless current_page?(controller: 'pages', action: 'home') %>
+            <% unless controller_name == 'pages' && action_name == 'home' %> 
+            <!-- # current_page?(controller: 'pages', action: 'home') %> -->
               <i class="fa-solid fa-house" style="color:rgb(127 29 29);"></i>
             <% end %>
           </div>
@@ -69,19 +75,19 @@
     <div>
       <ul>
         <li class="mb-1">
-          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Groups</a>
+          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Puntaje por dia</a>
         </li>
         <li class="mb-1">
-          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Secret Santas</a>
+          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Puntaje por semana</a>
         </li>
         <li class="mb-1">
-          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Gifts</a>
+          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Puntaje total</a>
         </li>
         <li class="mb-1">
           <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">My Profile</a>
         </li>
         <li class="mb-1">
-          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="https://www.handshq.com/">About</a>
+          <a class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="https://www.nba.com/" target="_blank">NBA.com</a>
         </li>
       </ul>
     </div>
@@ -91,11 +97,11 @@
           <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" %>
         <% else %>
           <%= button_to 'Sign in', new_user_session_path, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" %>
-          <%= buttton_to 'Sign up', new_user_registration_path, class: "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl" %>
+          <%= button_to 'Sign up', new_user_registration_path, class: "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl" %>
         <% end %>
       </div>
       <p class="my-4 text-xs text-center text-gray-400">
-        <span>Copyright © 2022</span>
+        <span>Copyright © 2023</span>
       </p>
     </div>
   </nav>

@@ -1,14 +1,39 @@
 Rails.application.routes.draw do
+  root to: 'pages#landing' # For non-authenticated users
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
 
-  root to: 'pages#landing'
+  namespace :api do
+    namespace :v1 do
+      resources :users
+    end
+  end
+
   get 'pages/home', to: 'pages#home'
-  resources :gifts
-  resources :members
-  resources :groups
-  get 'draws/:id', to: 'draws#show'
-  post 'draws', to: 'draws#update'
+  get 'pages/draw', to: 'pages#draw'
+
+  get 'games/new'
+  get 'games/create'
+  get 'games/:id/edit_points', to:'games#edit_points', as: 'edit_points_match'
+
+  resources :games do
+    member do
+      get 'edit_points'
+      patch 'update_points'
+    end
+  end
+
+  # get 'matches/new'
+  # get 'matches/create'
+  # get 'matches/:id/edit_points', to: 'matches#edit_points', as: 'edit_points_match'
+
+  # resources :matches do
+  #   member do
+  #     get 'edit_points'
+  #     patch 'update_points'
+  #   end
+  # end
 end

@@ -1,0 +1,40 @@
+<div class="flex items-center justify-center mb-5 text-red-900 text-4xl font-bold leading-9 tracking-tight">
+  Semana
+</div>
+<div class="flex items-center justify-center mb-5 text-red-900 text-2xl font-bold leading-9 tracking-tight">
+  <%= current_week_dates %>
+</div>
+<div class="flex items-center justify-center mb-10">
+  <div class="sm:w-full w-1/2">
+    <div class="relative overflow-x-auto">
+      <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3"></th>
+                <th scope="col" class="px-6 py-3">Lugar</th>
+                <th scope="col" class="px-6 py-3">Puntos</th>
+                <th scope="col" class="px-6 py-3">Juegos jugados</th>
+              </tr>
+          </thead>
+          <tbody>
+            <% @users_with_total_points.each_with_index do |user_with_points, index| %>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <%= user_with_points[:user].name %>
+                  </th>
+                  <td class="px-6 py-4">
+                    <%= index + 1 %>
+                  </td>
+                  <td class="px-6 py-4">
+                    <%= user_with_points[:total_points] %>
+                  </td>
+                  <td>
+                    <%= games_played(user_with_points[:user]) %>
+                  </td>
+              </tr>
+            <% end %>
+          </tbody>
+      </table>
+    </div>      
+  </div>
+</div>

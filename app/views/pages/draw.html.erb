@@ -1,0 +1,134 @@
+<div class="flex items-center justify-center mb-5 text-red-900 text-2xl font-bold leading-9 tracking-tight mb-5">
+  <%= Date.today.strftime("%A %d %B %Y") %>
+</div>
+<div class="flex items-center justify-center mb-5 text-red-900 text-2xl font-bold leading-9 tracking-tight mb-5">
+  <div class="mt-10 w-1/2">
+    <button id="shuffleButton" class="bg-red-900 flex w-full justify-center rounded-md px-3 py-4 text-2xl font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+      Comenzar
+    </button>
+  </div>
+</div>
+<div class="flex items-center justify-center mb-10">
+  <div class="w-1/2">
+    <div class="relative overflow-x-auto">
+      <div class="grid grid-cols-3 gap-4 mx-3">
+        <div>
+          <h2 class="text-lg font-bold mb-2 js-pre-title hidden">Primera rifa</h2>
+          <table class="w-full text-1xl text-left text-gray-500 dark:text-gray-400 pre-shuffle hidden" style="filter: brightness(.5);">
+            <tbody>
+              <!-- Display the pre-shuffle results here -->
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold mb-2 js-test-title hidden">Segunda rifa</h2>
+          <table class="w-full text-1xl text-left text-gray-500 dark:text-gray-400 test-shuffle hidden" style="filter: brightness(.5);">
+            <tbody>
+              <!-- Display the test-shuffle results here -->
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold mb-2 js-final-title hidden">Turnos</h2>
+          <table class="w-full text-3xl text-left text-gray-500 dark:text-gray-400 final-shuffle hidden">
+            <tbody>
+              <!-- Display the final-shuffle results here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex justify-between my-5">
+        <span class="text-base font-medium text-blue-700 dark:text-white" id="startingLabel"></span>
+        <span class="text-sm font-medium text-blue-700 dark:text-white" id="endingLabel"></span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+        <div class="bg-blue-600 h-2.5 rounded-full" id="progressNum"></div>
+      </div>
+            
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  const shuffleButton = document.getElementById("shuffleButton");
+  const preShuffleTable = document.querySelector(".pre-shuffle");
+  const testShuffleTable = document.querySelector(".test-shuffle");
+  const finalShuffleTable = document.querySelector(".final-shuffle");
+
+  const preTitle = document.querySelector(".js-pre-title");
+  const testTitle = document.querySelector(".js-test-title");
+  const finalTitle = document.querySelector(".js-final-title");
+  
+  const startingLabel = document.getElementById("startingLabel");
+  const endingLabel = document.getElementById("endingLabel");
+  const progressNum = document.getElementById('progressNum');
+  progressNum.style.width = '0%';
+
+  let first_shuffle = ['Lalo', 'Diego', 'Kike', 'Erikniu', 'Pato', 'Axelito', 'BackEndJr'].sort(() => Math.random() - 0.6);
+  let second_shuffle = ['Lalo', 'Diego', 'Kike', 'Erikniu', 'Pato', 'Axelito', 'BackEndJr'].sort(() => Math.random() - 0.6);
+  let third_shuffle = ['Lalo', 'Diego', 'Kike', 'Erikniu', 'Pato', 'Axelito', 'BackEndJr'].sort(() => Math.random() - 0.6);
+
+  const results = [
+    first_shuffle,
+    second_shuffle,
+    third_shuffle
+  ];
+
+  let shuffleIndex = 0;
+
+  shuffleButton.addEventListener("click", function() {
+    if (shuffleIndex === 0) {
+      preShuffleTable.classList.remove("hidden");
+      preTitle.classList.remove("hidden");
+      displayResults(preShuffleTable, results[shuffleIndex]);
+      shuffleButton.textContent = "2nda Rifa";
+      startingLabel.innerHTML = 'Comienzo'
+      progressNum.style.width = '33%';
+
+    } else if (shuffleIndex === 1) {
+      testShuffleTable.classList.remove("hidden");
+      testTitle.classList.remove("hidden");
+      displayResults(testShuffleTable, results[shuffleIndex]);
+      shuffleButton.textContent = "Rifa Final";
+      progressNum.style.width = '66%';
+
+    } else if (shuffleIndex === 2) {
+      finalShuffleTable.classList.remove("hidden");
+      finalTitle.classList.remove("hidden");
+      displayResults(finalShuffleTable, results[shuffleIndex]);
+      shuffleButton.style.display = "none";
+      endingLabel.innerHTML = 'Rifa Completa'
+      progressNum.style.width = '100%';
+    }
+
+    shuffleIndex++;
+  });
+
+  function displayResults(table, results) {
+    const tbody = table.querySelector("tbody");
+    tbody.innerHTML = "";
+
+    results.forEach(function(result, index) {
+      const row = document.createElement("tr");
+      row.className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700";
+
+      const numberCell = document.createElement("th");
+      numberCell.scope = "row";
+      numberCell.className = "px-6 py-4 font-large text-gray-900 whitespace-nowrap dark:text-white";
+      numberCell.textContent = index + 1 + ". ";
+
+      const nameCell = document.createElement("td");
+      nameCell.className = "px-6 py-4";
+      nameCell.textContent = result;
+
+      row.appendChild(numberCell);
+      row.appendChild(nameCell);
+
+      tbody.appendChild(row);
+    });
+  }
+});
+</script>
