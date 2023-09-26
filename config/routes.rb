@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :tournaments
+
   get 'pages/home', to: 'pages#home'
   get 'pages/draw', to: 'pages#draw'
 
@@ -25,15 +27,4 @@ Rails.application.routes.draw do
       patch 'update_points'
     end
   end
-
-  # get 'matches/new'
-  # get 'matches/create'
-  # get 'matches/:id/edit_points', to: 'matches#edit_points', as: 'edit_points_match'
-
-  # resources :matches do
-  #   member do
-  #     get 'edit_points'
-  #     patch 'update_points'
-  #   end
-  # end
 end

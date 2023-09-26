@@ -9,12 +9,12 @@ class PagesController < ApplicationController
     end
   end
 
+  def draw; end
+
   def home
     @users = User.joins(:player_game_results)
                   .select('users.*, SUM(player_game_results.points) AS total_points')
                   .group('users.id')
                   .order('total_points DESC')
   end
-
-  def draw; end
 end

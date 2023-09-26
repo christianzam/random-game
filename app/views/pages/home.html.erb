@@ -1,4 +1,5 @@
-<div class="w-1/2 flex items-center justify-center text-3xl text-red-900 py-5">RESULTADOS SEMANA <%= Date.today %></div>
+<div class="w-1/2 flex items-center justify-center text-3xl text-red-900 py-5"> Resultados Torneo </div>
+
 <div class="flex items-center justify-center space-x-5 mb-10 px-5">
   <div class="w-full mt-10">
     <div class="relative overflow-x-auto rounded-lg">
@@ -11,8 +12,6 @@
             <th scope="col" class="px-6 py-3">Promedio</th>
             <th scope="col" class="px-6 py-3">Empates</th>
             <th scope="col" class="px-6 py-3">Juegos</th>
-            <th scope="col" class="px-6 py-3">Canastas</th>
-
           </tr>
         </thead>
         <tbody>
@@ -25,7 +24,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-4">
-                  <%= place_and_medal(user) %>
+                  <%= place_and_medal(index) %>
                 </td>
                 <td class="px-6 py-4">
                   <%= total_points(user) %>
@@ -33,18 +32,15 @@
                 <td class="px-6 py-4">
                   <div class="mb-1 text-base font-medium dark:text-white"><%#= score_avrg(user) %>10%</div>
                   <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-                    score_bar_div(<%#= score_bar_div(user) %>
+                    <%= score_bar_div(user) %>
                   </div>
                 </td>
                 <td class="px-6 py-4">
-                  total_draws(<%#= total_draws(user) %>
+                  <%= total_draws(user) %>
                 </td>
                 <td class="px-6 py-4">
-                  total_matches(user)<%#= total_matches(user) %>
-                </td>
-                <td class="px-6 py-4">
-                  total_matches(user)<%#= total_matches(user) %>
-                </td>                
+                  <%= total_games(user) %>
+                </td>    
               </tr>
           <% end %>
         </tbody>
