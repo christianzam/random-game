@@ -5,16 +5,18 @@ module Pages
   module HomeHelper
     CURRENT_WEEK = (Date.current.beginning_of_week..Date.current.end_of_week(:saturday)).freeze
 
-    def total_place(user)
+    def weekly_place(user)
       # Retrieve the user's match results for the current WEEK
-      user_results = user.player_match_results.joins(:match).where(matches: { date: CURRENT_WEEK })
+      # user_results = user.player_game_results.joins(:game).where(game: { date: CURRENT_WEEK })
+    end
 
+    def total_place(user)
       # Calculate the total points for the user
+      user_results = user.player_game_results.joins(:game)
       user_points = user_results.sum(:points)
 
       # Determine the place based on the total points
-      PlayerMatchResult.joins(:match)
-                       .where(matches: { date: CURRENT_WEEK })
+      PlayerGameResult.joins(:game)
                        .where('points > ?', user_points)
                        .order(points: :desc)
                        .count + 1
@@ -48,9 +50,9 @@ module Pages
     end
 
     def total_points(user)
-      return 0 if user.player_match_results.nil? || user.player_match_results.empty?
+      return 0 if user.player_game_results.nil? || user.player_game_results.empty?
 
-      user.player_match_results.sum(:points) * 2
+      user.player_game_results.sum(:points) * 2
     end
 
     def score_avrg(user)
