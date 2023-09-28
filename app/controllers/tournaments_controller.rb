@@ -12,7 +12,7 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.new(tournament_params)
     
     if @tournament.save
-      redirect_to new_game_path(@tournament)
+      redirect_to new_game_path(tournament_id: @tournament)
     else
       render :new, notice: 'Hubo un problema al crear el torneo'
     end

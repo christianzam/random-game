@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class GamesController < ApplicationController
+  before_action :load_tournament, only: :new
   before_action :on_going_game, only: %i[new create show edit_points update_points]
   before_action :set_available_users, only: %i[new edit_points]
   after_action :assign_place, only: %i[update_points]
@@ -71,6 +72,10 @@ class GamesController < ApplicationController
     return if Game.all.empty?
 
     @on_going_game = Game.find_by(date: DATE)
+  end
+
+  def load_tournament
+    @tournament = Tournament.find params[:tournament_id]
   end
 
   def assign_place
