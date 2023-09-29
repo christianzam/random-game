@@ -5,4 +5,7 @@
 import { application } from "./application"
 
 import HelloController from "./hello_controller"
+import TournamentController from "./tournament_controller"
+
 application.register("hello", HelloController)
+application.register("CreateTournament", TournamentController)

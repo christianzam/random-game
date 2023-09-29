@@ -12,4 +12,7 @@
 #
 class Tournament < ApplicationRecord
   has_many :games
+  has_one_attached :tournament_picture
+
+  validates :name, :start_date, :end_date, presence: true
 end
