@@ -1,5 +1,7 @@
 <div class="flex items-center justify-center mb-5 text-red-900 text-2xl font-bold leading-9 tracking-tight">
-  <%= Date.today.strftime("%A %d %B %Y") %>
+  <p class="text-center">
+    <%= tournament_name(@game) %> <br> <%= Date.today.strftime("%A %d %B %Y") %>
+  </p>
 </div>
 <div class="flex items-center justify-center mb-10">
   <div class="w-1/2">

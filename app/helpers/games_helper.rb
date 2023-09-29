@@ -2,6 +2,10 @@
 
 module GamesHelper
 
+  def tournament_name(game)
+    game&.tournament&.name
+  end
+
   def boolean_answer(value)
     return '-' if value.nil?
 

@@ -59,7 +59,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:date, player_game_results_attributes: %i[id user_id points draw win_by_draw draw_with])
+    params.require(:game).permit(:tournament_id, :date, player_game_results_attributes: %i[id user_id points draw win_by_draw draw_with])
   end
 
   def set_available_users
