@@ -36,7 +36,6 @@ gem 'simple_form'
 gem 'rack-cors'
 gem 'rails-erd'
 gem 'ruby-graphviz'
-gem 'stimulus-rails'
 gem 'turbo-rails'
 
 group :development, :test do

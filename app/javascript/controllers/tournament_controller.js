@@ -1,13 +1,9 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "stimulus"
 
 export default class extends Controller {
-  connect() {
-    const createBtn = document.getElementById('create-tournament-btn');
-    console.log(createBtn);
-    console.log('>>>>>>>>>>>>>');
-  }
+static targets = ['btnCreate']
 
-  displayPlease(){
-    console.log('please please please');
+  connect() {
+    console.log(this.btnCreateTarget);
   }
 }
