@@ -1,8 +1,24 @@
-<div class="grid grid-cols-3 gap-4">
-  <div class="col-span-2">
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse accusamus id, modi est consectetur adipisci repellat voluptatibus aliquam nesciunt aperiam omnis dolorum ipsa ea sequi labore tempora. Facere, possimus maiores.
+<div class="main-wrapper">
+  <div class="main">
+    <div class="cards">
+      <% @tournaments.each_with_index do |tournament| %>
+        <div class="m-5">
+          <%= link_to games_new_path(tournament_id: tournament.id), class:"flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700" do %>
+            <%= tournament_pic(tournament, class_name='object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg')%>
+            <div class="flex flex-col justify-between p-4 leading-normal">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= tournament&.name %></h5>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><strong>Comienza:</strong> <%= tournament.start_date.strftime("%a #{tournament.start_date.day.ordinalize}/%b/%Y") %></p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><strong>Finaliza:</strong> <%= tournament.end_date.strftime("%a #{tournament.end_date.day.ordinalize}/%b/%Y") %></p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><strong>Tipo de torneo:</strong> <%= tournament.period_tournament ? 'Temporada' : 'Esporadico' %></p>         
+            </div>
+          <% end %>          
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div>
+  <div class="form">
     <turbo-frame id="tournament-new" src="<%= new_tournament_path.to_s %>"></turbo-frame>
   </div>
 </div>
+
+
