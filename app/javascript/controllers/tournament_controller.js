@@ -4,6 +4,11 @@ export default class extends Controller {
 static targets = ['btnCreate']
 
   connect() {
-    console.log(this.btnCreateTarget);
+    console.log('contected');
+  }
+
+  displayTournament(event){
+    
+    console.log(this.btnCreateTarget)
   }
 }
