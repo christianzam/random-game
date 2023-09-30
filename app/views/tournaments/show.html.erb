@@ -1,0 +1,60 @@
+<div class="flex justify-center px-5">
+  <div class="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white"><%= @tournament.name %></h5>
+    <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400"><%= @tournament.start_date.strftime("%A %d %B %Y") %> al <%= @tournament.end_date.strftime("%A %d %B %Y") %> </p>
+  </div>
+</div>
+<div class="flex px-5">
+  <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex items-center justify-between mb-4">
+      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Jugadores</h5>
+    </div>
+    <div class="flow-root">
+      <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+        <% @tournament.users.each do |user| %>
+          <li class="py-3 sm:py-4">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0">
+                  <%= user_profile_pic(user, class_name='h-8 w-8 rounded-full') %>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                      <%= user.full_name %>
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      <%= user.email %>
+                    </p>
+                </div>
+                <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                  Score Avrg <%= score_avrg(user) %> %
+                </div>
+              </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  
+    <div class="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">Partidos</h5>
+      <div class="main-wrapper">
+        <div class="main">
+          <div class="cards">
+            <% @tournament.games.each do |game| %>
+              <div class="m-5">
+                <%= link_to game_path(id: game), class:"flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700" do %>
+                  <%= tournament_pic(game.tournament, class_name='object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg pl-3')%>
+                  <div class="flex flex-col justify-between p-4 leading-normal">
+                      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= @tournament.name %></h5>
+                      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><strong>Fecha:</strong> <%= game.date.strftime("%a #{game.date.day.ordinalize}/%b/%Y") %></p>
+                      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><strong>Jugadores:</strong> <%= game.player_game_results.size %></p>         
+                  </div>
+                <% end %>          
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+</div>

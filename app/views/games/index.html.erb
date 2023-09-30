@@ -1,5 +1,5 @@
 <div class="h-screen px-5">
-  <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-4 md:grid-rows-4 gap-4 h-5/6 w-4/5 mx-auto">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
     <% @games.each_with_index do |game| %>
       <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= game.date.strftime("%a #{game.date.day.ordinalize}/%b/%Y") %></h5>

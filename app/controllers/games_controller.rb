@@ -75,7 +75,7 @@ class GamesController < ApplicationController
   end
 
   def load_tournament
-    @tournament = Tournament.find params[:tournament_id]
+    @tournament = Tournament.find_by(params[:tournament_id] || nil)
   end
 
   def assign_place

@@ -1,4 +1,5 @@
 import { Controller } from "stimulus"
+import Rails from '@rails/ujs';
 
 export default class extends Controller {
 static targets = ['btnCreate']
@@ -8,7 +9,19 @@ static targets = ['btnCreate']
   }
 
   displayTournament(event){
+    event.preventDefault();
     
-    console.log(this.btnCreateTarget)
+    Rails.ajax({
+      type: 'post',
+      url: event.target.action,
+      data: new FormData(event.target),
+      success: () => {
+        // Turbo.visit(window.location.pathname, { target: 'tournament-index' });
+        window.location.reload();
+      },
+      error: () => {
+        console.error('error');
+      }
+    });
   }
 }

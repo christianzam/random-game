@@ -28,9 +28,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_many :player_game_results, dependent: :destroy
-  # has_many :player_match_results, dependent: :destroy
-  # has_many :weekly_result, dependent: :destroy
-  # has_many :player_weekly_scores, dependent: :destroy
 
   has_one_attached :profile_pic
   

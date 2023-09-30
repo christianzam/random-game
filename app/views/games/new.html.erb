@@ -6,7 +6,7 @@
     <div class="mt-6">
       <% if @available_users.any? %>
         <%= simple_form_for @game, url: games_path, html: { class: "space-y-4" } do |form| %>
-          <%= form.hidden_field :tournament_id, value: @tournament.id %>
+          <%= form.hidden_field :tournament_id, value: @tournament&.id %>
           <% if @on_going_game %>
             <%= form.hidden_field :date, value: @on_going_game.date %>
           <% else %>
