@@ -32,7 +32,7 @@ class GamesController < ApplicationController
     if @game.save
       redirect_to new_game_path, notice: 'Juego creado con éxito'
     else
-      render :new, flash[:alert] = "#{@game.errors.full_messages.to_sentence}" 
+      render :new, alert:"#{@game.errors.full_messages.to_sentence}" 
       puts "errors >> #{@game.errors.full_messages.to_sentence} and #{@game.player_game_results.each{|pgr| pgr.errors.full_messages.to_sentence}} "
     end
 
