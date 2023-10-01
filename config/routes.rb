@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end
 
   resources :tournaments
+  resources :player_game_results
 
   get 'pages/home', to: 'pages#home'
   get 'pages/draw', to: 'pages#draw'

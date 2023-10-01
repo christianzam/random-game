@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   before_action :load_tournament, only: :new
   before_action :load_game, only: %i[show edit]
   # before_action :on_going_game, only: %i[new create show edit_points update_points]
-  # before_action :set_available_users, only: %i[new edit_points]
+  before_action :set_available_users, only: %i[new edit_points]
   # after_action :assign_place, only: %i[update_points]
 
   def index
@@ -13,29 +13,32 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
-    @game.player_game_results.build
   end
 
   def create
     @game = Game.new(game_params)
-  
+    
+    # Get the selected user IDs
+    # selected_users_ids = params[:game][:player_game_results_attributes].map { |attributes| attributes[:user_id].map(&:to_i) }.flatten
+
+    # selected_users_ids.each do |id|
+    #   user = User.find(id)
+    #   if user.present?
+    #     # PlayerGameResult.where(user_id: user.id).first_or_create
+    #     @game.player_game_results.build(user_id: user.id)
+    #   end
+    # end
+
     if @game.save
-      selected_users_ids = params[:game][:player_game_results_attributes].map { |attributes| attributes[:user_id].map(&:to_i) }.flatten
-      
-      selected_users_ids.each do |user_id|
-        @game.player_game_results.create(user_id: user_id)
-      end
-  
       redirect_to new_game_path, notice: 'Juego creado con éxito'
     else
-      render :new, notice: @game.errors.full_messages.to_sentence
+      render :new, flash[:alert] = "#{@game.errors.full_messages.to_sentence}" 
+      puts "errors >> #{@game.errors.full_messages.to_sentence} and #{@game.player_game_results.each{|pgr| pgr.errors.full_messages.to_sentence}} "
     end
+
   end
   
   
-  
-  
-
   def show; end
 
   def edit

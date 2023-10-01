@@ -26,7 +26,7 @@ class Game < ApplicationRecord
 
   accepts_nested_attributes_for :player_game_results
 
-  # after_create :set_week_number
+  after_create :set_week_number
 
   def submitted_users
     users.pluck(:id)

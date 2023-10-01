@@ -1,0 +1,22 @@
+<div class="flex justify-center">
+  <%= simple_form_for @player_game_result, url: player_game_results_path, html: { class: "space-y-4" } do |form| %>
+    <%#= form.hidden_field :game_id, value: @game&.id %>
+  <div>
+    <h2 class="text-lg font-bold text-black m-3">Juego</h2>
+    <div>
+      <%= form.input :game_id, label: 'Game id' %>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <% User.all.each do |user| %>
+        <div class="flex items-center text-black text-lg">
+          <%= check_box_tag "[user_id]", user.id, class: "rounded-lg" %>
+          <%= label_tag nil, user.name, class: "ml-2" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <%= form.button :submit, "Submit", class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-6 w-full" %>
+  </div>
+<% end %>
+</div>
