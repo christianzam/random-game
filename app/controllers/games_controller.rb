@@ -2,10 +2,7 @@
 
 class GamesController < ApplicationController
   before_action :load_tournament, only: :new
-  before_action :load_game, only: %i[show edit]
-  # before_action :on_going_game, only: %i[new create show edit_points update_points]
-  # before_action :set_available_users, only: %i[new edit_points]
-  # after_action :assign_place, only: %i[update_points]
+  before_action :load_game, only: %i[show edit update]
 
   def index
     @games = Game.all
@@ -20,31 +17,26 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
 
     if @game.save
-      redirect_to new_game_path, notice: 'Juego creado con éxito'
+      render json: { tournament: @tournament }, status: :ok
     else
-      render :new, alert:"#{@game.errors.full_messages.to_sentence} #{@game.player_game_results.each{|pgr| pgr.errors.full_messages.to_sentence}}" 
+      render json: { error: "#{ @game.errors.full_messages.to_sentence } / #{@game.player_game_results.each{|pgr| pgr.errors.full_messages.to_sentence}}" }
     end
   end
-  
-  
+
   def show; end
 
   def edit
-    @users_with_pts = @game.users
+    @users = @game.users
   end
 
-  # def edit_points
-  #   @users_with_pts = User.joins(:player_game_results).where.not(player_game_results: { id: nil })
-  # end
-
-  # def update_points
-  #   if @on_going_game.update(game_params)
-  #     redirect_to games_new_path, notice: 'Los puntos se ingresaron correctamente'
-  #   else
-  #     flash.now[:alert] = "Error al ingresar puntos: #{@on_going_game.errors.full_messages.to_sentence}"
-  #     render :edit_points
-  #   end
-  # end
+  def update
+    if @game.update(game_update_params)
+      redirect_to game_path(@game), notice: 'Los puntos se ingresaron correctamente'
+    else
+      flash.now[:alert] = "#{@game.player_game_results.each{|pgr| pgr.errors.full_messages.to_sentence}}"
+      render :edit
+    end
+  end
 
   private
 
@@ -52,11 +44,16 @@ class GamesController < ApplicationController
     params.require(:game).permit(
       :date,
       :tournament_id,
-      user_ids: [],  # Permit user_ids as an array
+      user_ids: [],
       player_game_results_attributes: [:id, :points, :draw, :win_by_draw, :draw_with]
     )
   end
-  
+
+  def game_update_params
+    params.require(:game).permit(
+      player_game_results_attributes: [:id, :user_id, :points, :draw, :win_by_draw, :draw_with]
+    )
+  end
   
   def load_game
     @game = Game.find(params[:id])
@@ -66,23 +63,8 @@ class GamesController < ApplicationController
     @tournament = Tournament.find_by(id: params[:tournament_id])
   end
 
-  # def set_available_users
-  #   today_game = Game.where(date: DATE.beginning_of_day..DATE.end_of_day)
-  #   logged_users_by_date = PlayerGameResult.where(game: today_game).pluck(:user_id)
-  #   @available_users = User.where.not(id: logged_users_by_date)
-  # end
-
-  # def on_going_game
-  #   return if Game.all.empty?
-
-  #   @on_going_game = Game.find_by(date: DATE)
-  # end
-
-
   # def assign_place
-  #   return 'Missing players results' unless @on_going_game.player_game_results.count == User.count
-
-  #   ordered_results = @on_going_game.player_game_results.order(points: :desc)
+  #   @game.player_game_results.order(points: :desc)
 
   #   ordered_results.each.with_index(1) do |player_game_result, index|
   #     # player_game_result.update(points: player_game_result.points + 1) if player_game_result.win_by_draw

@@ -1,38 +1,79 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 require 'faker'
 
 SEED_PASSWORD = 'Pass123'.freeze
 
 if Rails.env.development?
-
   puts 'Seeds starting...'
-
-  puts 'Destroying previous Users...'
+  puts 'Destroying previous records...'
   User.destroy_all
-  puts 'Users destroyed...'
+  PlayerGameResult.destroy_all
+  Game.destroy_all
+  Tournament.destroy_all
+  puts 'Records destroyed...'
 
-  chris = User.create!(password: SEED_PASSWORD, email: 'chris@mail.com', name: 'Christian', last_name: 'Zamora', nick_name: 'Chris', admin: true)
-  players = %w(Eduardo Axel AxlChristian Enrique Patricio Diego Sergio Majo Manuel)
-
+  users = { 
+    Lalo: { name: "Eduardo", last_name: '' }, 
+    Erinu: { name: 'AxelMohammed', last_name: ''},
+    Tinok: { name: 'AxelCristian', last_name: 'Tinoco'},
+    Pato: { name: 'Patricio', last_name: 'Rodriguez'},
+    Kike: { name: 'Enrique', last_name: '' },
+    Diego: { name: 'Diego', last_name: '' },
+    Serg: { name: 'Sergio', last_name: '' },
+    Majo: { name: 'MariJose', last_name: '' },
+    Manu: { name: 'Manuel', last_name: '' },
+    Alex: { name: 'Alejandro', last_name: '' },
+    Cris: { name: 'Cristina', last_name: '' },
+    Xoch: { name: 'Xochitl', last_name: ''  },
+    Chris: { name: 'Christian', last_name: 'Zamora', admin: true }
+  }
+  
   puts '...Creating Users'
-  players.each_with_index do |player, index|
-    nicknames = %w(Lalo Tinoco Kike Pato Manuel Diego Sergio Majo Xoch Eriknu)
 
-    user = User.create_with(
+  users.each do |key, value|
+    last_name = ["Tinoco", "Rodriguez", "Zamora"].include?(value[:last_name]) ? value[:last_name] : Faker::Name.last_name
+                    
+    admin = value[:last_name].include?('Zamora') ? true : false
+
+    User.create_with(
       password: SEED_PASSWORD,
-      admin: false,
-      name: player,
-      last_name: Faker::Name.last_name,
-      nick_name: nicknames[index],
+      admin: admin,
+      name: value[:name],
+      last_name: last_name,
+      nick_name: key,
       interest: { activity: Faker::Hobby.activity, activity_2: Faker::Hobby.activity }
-    ).find_or_create_by!(email: "#{player}@mail.com")
+    ).find_or_create_by!(email: "#{key}@mail.com")
   end
+
+  puts 'Examples users:'
+  puts User.first.inspect
+  puts User.find_by(name: 'Christian').inspect
+
+  puts 'Creating Tournaments'
+  tournaments = {
+    "Mini Basket" => { 
+      start_date: '1st June 2023'.to_date,
+      end_date: '31 Dec 2023'.to_date,
+      period_tournament: true
+     },
+
+     "Office Darts" => {
+      start_date: '1st Sept 2023'.to_date,
+      end_date: '31 Dec 2023'.to_date,
+      period_tournament: true
+     }
+  }
+
+  tournaments.each do |k, v|
+    tournament = Tournament.create!(
+      name: k,
+      start_date: v[:start_date],
+      end_date: v[:end_date],
+      period_tournament: v[:period_tournament]
+    )
+  end
+  puts 'Tournaments created'
+  puts 'Example tournament'
+  puts Tournament.last.inspect
+
   puts 'seed file ran succesfully!, bye'
 end

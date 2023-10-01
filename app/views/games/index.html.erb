@@ -1,11 +1,19 @@
-<div class="h-screen px-5">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
-    <% @games.each_with_index do |game| %>
+<div class="main-wrapper">
+  <div class="main">
+    <div class="cards">
+      <% if @games.empty? %>
+        <div class="flex justify-center px-5">
+          <div class="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">Aun no hay juegos</h5>
+          </div>
+        </div>
+      <% end %>
+      <% @games.each_with_index do |game| %>
       <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= game.date.strftime("%a #{game.date.day.ordinalize}/%b/%Y") %></h5>
         <hr class="my-3">
         <p class="mb-3"> 
-         <strong>Torneo:</strong> <%= game&.tournament&.name %>
+        <strong>Torneo:</strong> <%= game&.tournament&.name %>
         </p>
         <div class="flex items-center space-x-4">
           <div class="flex-1 min-w-0">
@@ -24,5 +32,9 @@
         <% end %>
       </div>
     <% end %>
+    </div>
+  </div>
+  <div class="form">
+    <turbo-frame id="game-new" src="<%= new_game_path %>"></turbo-frame>
   </div>
 </div>

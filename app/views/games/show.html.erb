@@ -34,7 +34,7 @@
                       <%= boolean_answer player_game_result.win_by_draw %>
                     </td>
                     <td class="px-6 py-4 <%= bg_color %>">
-                      <%= places_icons index %>
+                      <%= places_icons(index, player_game_result) %>
                     </td>
                   </tr>
                 <% end %>
@@ -42,7 +42,7 @@
             </table>
             <div class="flex justify-center my-3">
               <span>
-                <%= link_to 'Editar', edit_game_path(@game), class: "text-black text-md font-medium" %>
+                <%= link_to "#{edit_add_points_title(@game)} Puntos", edit_game_path(@game), class: "text-black text-md font-medium" %>
               </span>
               <span>
                 <svg class="w-3 h-7 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

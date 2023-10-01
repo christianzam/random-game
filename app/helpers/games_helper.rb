@@ -14,16 +14,18 @@ module GamesHelper
     value ? 'Si' : 'No'
   end
 
-  def places_icons(place)
-    case place
+  def places_icons(index, player_game_result)
+    return '' if player_game_result.points.nil?
+
+    case index
     when 1
-      "#{place.ordinalize}🥇"
+      "#{index.ordinalize}🥇"
     when 2
-      "#{place.ordinalize}🥈"
+      "#{index.ordinalize}🥈"
     when 3
-      "#{place.ordinalize}🥉"
+      "#{index.ordinalize}🥉"
     else
-      place.ordinalize
+      index.ordinalize
     end
   end
 
@@ -31,5 +33,9 @@ module GamesHelper
     return '-' if id.nil?
 
     "con: #{User.find(id).name}"
+  end
+
+  def edit_add_points_title(game)
+    game.player_game_results.first.points.nil? ? 'Agregar' : 'Editar'
   end
 end

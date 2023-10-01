@@ -10,7 +10,7 @@
             <%= form.fields_for :player_game_results do |player_fields| %>
               <div class="border border-solid border-gray-300 rounded mb-3 p-5">
                 <h2 class="text-lg font-bold text-white mt-6">Jugador</h2>
-                <%= player_fields.collection_select :user_id, @users_with_pts, :id, :name, {}, { class: "rounded-lg py-2 px-3 w-full bg-gray-100 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300 my-2" } %>
+                <%= player_fields.collection_select :user_id, @users, :id, :name, {}, { class: "rounded-lg py-2 px-3 w-full bg-gray-100 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300 my-2" } %>
 
                 <label for="Points" class="block text-lg font-bold text-white">
                   Puntos
@@ -36,7 +36,7 @@
                     <label for="draw_with" class="block text-lg font-bold text-white w-1/2">
                       Con quien empato?
                     </label>
-                    <%= player_fields.input :draw_with, label: false, collection: @users_with_pts, input_html: { class: "rounded-lg py-2 px-3 mt-5", type: "input" } %>
+                    <%= player_fields.input :draw_with, label: false, collection: @users, input_html: { class: "rounded-lg py-2 px-3 mt-5", type: "input" } %>
                   </div>
                 </div>
 
