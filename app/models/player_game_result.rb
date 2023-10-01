@@ -28,13 +28,4 @@ class PlayerGameResult < ApplicationRecord
   belongs_to :game
 
   validates :user_id, uniqueness: { scope: :game_id }
-  validate :points_not_nil
-
-  # after_create :assign_place
-
-  def points_not_nil
-    if points.nil?
-      errors.add(:points, "no puede estar en blanco")
-    end
-  end
 end

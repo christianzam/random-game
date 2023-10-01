@@ -17,9 +17,9 @@ Rails.application.routes.draw do
   get 'pages/home', to: 'pages#home'
   get 'pages/draw', to: 'pages#draw'
 
-  get 'games/new'
-  get 'games/create'
-  get 'games/:id/edit_points', to:'games#edit_points', as: 'edit_points_match'
+  # get 'games/new'
+  # get 'games/create'
+  # get 'games/:id/edit_points', to:'games#edit_points', as: 'edit_points_match'
 
   resources :games do
     member do

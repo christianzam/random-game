@@ -20,12 +20,13 @@
 #
 class Game < ApplicationRecord
   belongs_to :tournament, optional: true
-  has_one :game_result
+  has_one :game_result, dependent: :destroy
   has_many :player_game_results, dependent: :destroy
   has_many :users, through: :player_game_results
+
   accepts_nested_attributes_for :player_game_results
 
-  after_create :set_week_number
+  # after_create :set_week_number
 
   def submitted_users
     users.pluck(:id)

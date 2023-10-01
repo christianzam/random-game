@@ -3,6 +3,8 @@
 module GamesHelper
 
   def tournament_name(game)
+    return 'Friendly game' if game&.tournament&.name.nil?
+
     game&.tournament&.name
   end
 
