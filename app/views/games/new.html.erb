@@ -4,7 +4,6 @@
       <%= Date.today.strftime("%A %d %B %Y") %>
     </h1>
     <div class="mt-6">
-
       <%= simple_form_for @game, url: games_path, html: { class: "space-y-4" } do |form| %>
       <div>
         <label for="date" class="block text-lg font-bold text-white">
@@ -18,22 +17,21 @@
         </label>
         <%= form.input :tournament_id, collection: Tournament.all, label: false, value_method: :id, include_blank: "Juego amistoso" %>
       </div>
-      <div>
-        <h2 class="text-lg font-bold text-white mt-3">Jugadores</h2>
-        <div class="grid grid-cols-2 gap-4">
+      <h2 class="text-lg font-bold text-white mt-3">Jugadores</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <%= form.fields_for :player_game_results do |player_fields| %>
           <% User.all.each do |user| %>
             <div class="flex items-center text-white text-lg">
-              <%= check_box_tag "game[player_game_results_attributes][][user_id][]", user.id, false, class: "rounded-lg" %>
+              <%= form.check_box :user_ids, { multiple: true }, user.id, nil %>
               <%= label_tag nil, user.name, class: "ml-2" %>
             </div>
           <% end %>
-        </div>
+        <% end %>
       </div>
       <div>
         <%= form.button :submit, "Submit", class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-6 w-full" %>
       </div>
-    <% end %>
-    
+    <% end %> 
     </div>
   </div>
 </div>

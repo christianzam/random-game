@@ -23,7 +23,6 @@ class Game < ApplicationRecord
   has_one :game_result, dependent: :destroy
   has_many :player_game_results, dependent: :destroy
   has_many :users, through: :player_game_results
-
   accepts_nested_attributes_for :player_game_results
 
   after_create :set_week_number
