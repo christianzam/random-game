@@ -1,23 +1,31 @@
 <div class="flex justify-center px-5 mb-2">
-  <div class="w-full text-center bg-gray-500 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+  <div class="w-full text-center bg-gray-500 border border-gray-200 rounded-lg shadow px-3 py-3 dark:bg-gray-800 dark:border-gray-700">
 
     <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4">
+      <!-- Logo -->
       <div class="flex justify-start">
-        <h5 class="mb-2 text-3xl font-bold text-white"> <i class="fas fa-trophy" style="font-size:80px;"></i> </h5>
-      </div>
-      <div class="justify-center">
-        <div>
-          <h5 class="mb-2 text-center text-3xl font-bold text-white">Random games</h5>
-        </div>
-        <div>
-          <p class="text-md font-bold text-white">for all your needs</p>
+        <div class="justify-center pt-5">
+          <h5 class="mb-2 text-3xl font-bold text-white"> <i class="fas fa-trophy" style="font-size:80px; color:yellow;"></i> </h5>
+          <p class="text-lg font-bold text-white">RandomGames</p>
+          <p class="text-sm font-bold text-white">for all your needs</p>
         </div>
       </div>
+      <!-- Main banner -->
+      <div class="justify-center pt-5">
+        <h5 class="mb-3 text-center text-4xl font-bold text-white">Random Games</h5>
+        <h3 class="mt-3 text-center text-4xl font-bold text-white">
+          <%= Date.current.strftime("%A %d %b %Y") %>
+        </h3>
+      </div>
+      <!-- Fav player -->
       <div class="flex justify-end">
         <div class="justify-center">
-          <p class="text-md font-bold text-white">
-            Fav player
-          </p>
+          <p class="text-md font-bold text-white mb-2">Jugador del mes</p>
+          <div class="flex justify-center">
+            <%= user_profile_pic(fav_user, class_name='w-20 h-20 mb-3 rounded-full') %>
+          </div>
+          <p class="text-md font-bold">⭐⭐⭐⭐⭐</p>
+          <p class="text-md font-bold text-white"> <%= fav_user.full_name %></p>
         </div>
       </div>
     </div>

@@ -94,5 +94,13 @@ module Pages
         'green'
       end
     end
+
+    def fav_user
+      User.joins(player_game_results: { game: :tournament })
+          .group('users.id')
+          .order('SUM(player_game_results.points) DESC')
+          .limit(1)
+          .first
+    end    
   end
 end
