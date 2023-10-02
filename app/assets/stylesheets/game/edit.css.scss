@@ -1,0 +1,14 @@
+.edit-game-wrapper {
+  display: flex;
+}
+
+.edit-game-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-game-cards{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}

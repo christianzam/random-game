@@ -2,10 +2,12 @@ import { Controller } from "stimulus"
 import Rails from '@rails/ujs';
 
 export default class extends Controller {
-static targets = ['btnCreate']
+static targets = ['btnCreate', 'playersDiv', 'addPlayerBtn']
 
   connect() {
     console.log('contected');
+    // console.log(this.playersDivTarget);
+    console.log(this.addPlayerBtnTarget);
   }
 
   displayGame(event){
@@ -23,5 +25,10 @@ static targets = ['btnCreate']
         console.error(response);
       }
     });
+  }
+
+  displayUserForm(){
+    console.log('>>>>>>>>>>>>>>>>>');
+    this.playersDivTarget.classList.toggle("hidden");
   }
 }

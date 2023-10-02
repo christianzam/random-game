@@ -1,58 +1,64 @@
-<div class="bg-green-900 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <div class="mt-6">
-      <h1 class="text-white text-2xl font-bold mb-6">Editar Juego</h1>
-      <h3 class="text-white text-2xl font-bold mb-6"><%= @game&.date&.strftime("%A %d %B %Y") %></h3>
-      
-      <% if @game.present? %>
-        <%= simple_form_for @game, url: game_path(@game), html: { class: "space-y-4" } do |form| %>
+<div class="flex justify-center px-5">
+  <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <%= simple_form_for @game, url: game_path(@game), html: { class: "space-y-4" } do |form| %>
+      <div class="flex justify-center px-5">
+        <div class="w-full p-4 text-center bg-gray-100 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white"><%= @game.date.strftime("%A %d %B %Y") %></h5>
+          <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Edita los puntos del juego</p>
           <div>
-            <%= form.fields_for :player_game_results do |player_fields| %>
-              <div class="border border-solid border-gray-300 rounded mb-3 p-5">
-                <h2 class="text-lg font-bold text-white mt-6">Jugador</h2>
-                <%= player_fields.collection_select :user_id, @users, :id, :name, {}, { class: "rounded-lg py-2 px-3 w-full bg-gray-100 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300 my-2" } %>
+            <%= form.button :submit, "Guardar", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'" %>
+          </div>
+        </div>
+      </div>
+      <div class="w-full">
+        <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <%= form.fields_for :player_game_results do |player_fields| %>
+            <div class="bg-gray-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div class="flex flex-col items-center p-2">
+                <div class="pt-3">
+                  <%= user_profile_pic(player_fields.object.user, class_name='w-24 h-24 mb-3 rounded-full shadow-lg') %>
+                </div>
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-gray">
+                  <%= player_fields.object.user.name %>
+                </h5>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Aka <%= player_fields.object.user.nick_name %></span>
+                <%= player_fields.hidden_field :user_id %>
 
-                <label for="Points" class="block text-lg font-bold text-white">
-                  Puntos
-                </label>
-                <%= player_fields.input :points, label: false, input_html: { class: "rounded-lg py-2 px-3 w-1/2 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-300", type: "number"  } %>
-
-                <div class='mt-2 pl-5'>
-                  <div class="flex items-center my-2">
-                    <label for="draw" class="block text-lg font-bold text-white w-1/2">
-                      Empate?
-                    </label>
-                    <%= player_fields.input :draw, label: false, input_html: { class: "rounded-lg py-3 px-3 mt-5", type: "boolean" } %>
+                <div class="flex mt-4 space-x-3 md:mt-6">
+                  <div class="inline-flex items-center px-4 py-2">
+                    <div class="flex justify-between items-center w-full">
+                      <label for="draw" class="block text-lg font-bold text-gray w-1/2 mr-5">
+                        Empate?
+                      </label>
+                      <%= player_fields.input :draw, label: false, input_html: { class: "rounded-lg py-3 px-3 mt-5", type: "boolean" } %>
+                    </div>
                   </div>
-
-                  <div class="flex items-center my-2">
-                    <label for="win_by_draw" class="block text-lg font-bold text-white w-1/2">
-                      Gano el empate?
-                    </label>
-                    <%= player_fields.input :win_by_draw, label: false, input_html: { class: "rounded-lg py-3 px-3 mt-5", type: "boolean" } %>
-                  </div>
-
-                  <div class="flex items-center my-2">
-                    <label for="draw_with" class="block text-lg font-bold text-white w-1/2">
-                      Con quien empato?
-                    </label>
-                    <%= player_fields.input :draw_with, label: false, collection: @users, input_html: { class: "rounded-lg py-2 px-3 mt-5", type: "input" } %>
+                  <div class="inline-flex items-center px-4 py-2">
+                    <div class="flex justify-between items-center w-full">
+                      <label for="win_by_draw" class="block text-lg font-bold text-gray w-1/2">
+                        Gano el empate?
+                      </label>
+                      <%= player_fields.input :win_by_draw, label: false, input_html: { class: "rounded-lg py-3 px-3 mt-5", type: "boolean" } %>
+                    </div>
                   </div>
                 </div>
-
+                <div class="flex items-center my-2">
+                  <label for="draw_with" class="block text-lg font-bold text-gray w-1/2 mr-5">
+                    Con quien empato?
+                  </label>
+                  <%= player_fields.input :draw_with, label: false, collection: @users, input_html: { class: "rounded-lg py-2 px-3 mt-5", type: "input" } %>
+                </div>
+                <div class="flex items-center my-2">
+                  <label for="Points" class="block text-lg font-bold text-gray w-1/2 mr-5">
+                    Puntos
+                  </label>
+                  <%= player_fields.input :points, label: false, input_html: { class: "rounded-lg py-2 px-3 mt-5", type: "number"  } %>
+                </div>
               </div>
-            <% end %>
-          </div>
-          <div>
-            <%= form.button :submit, "Update Points", class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-6 w-full" %>
-          </div>
-        <% end %>
-      <% else %>
-        <div class="flex items-center justify-center mb-5 text-white text-2xl font-bold leading-9 tracking-tight">
-          Aun no hay partida
+            </div>
+          <% end %>
         </div>
-      <% end %>
-      
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>

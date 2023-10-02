@@ -11,22 +11,35 @@
             </label>
             <%= form.input :date, label: false, input_html: { class: 'rounded-lg', type: 'date' } %>
           </div>
+
+          <a id="toggleBtn"
+            class="inline-flex items-center text-med text-black cursor-pointer hover:underline"
+            data-game-target="addPlayerBtn" 
+            data-action="click->game#displayUserForm">
+            <div class="mt-5 mb-5 p-2 bg-gray-100">
+              Escoger Jugadores <i class="fas fa-chevron-right ml-5"></i>
+            </div>
+          </a>
+  
+          <div class="hidden" data-game-target="playersDiv">
+            <h2 class="text-lg font-bold text-black mt-3">Jugadores</h2>
+            <div class="grid grid-cols-2 gap-4">
+              <%= form.fields_for :player_game_results do |player_fields| %>
+                <% User.all.each do |user| %>
+                  <div class="flex items-center text-black text-lg">
+                    <%= form.check_box :user_ids, { multiple: true, class: 'rounded-lg' }, user.id, nil %>
+                    <%= label_tag nil, user.name, class: "ml-2" %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
           <div>
             <label for="tournament" class="block text-lg font-bold text-black">
               Torneo o Juego Amistoso
             </label>
             <%= form.input :tournament_id, collection: Tournament.all, label: false, value_method: :id, include_blank: "Juego amistoso", input_html: { class: 'rounded-lg' } %>
-          </div>
-          <h2 class="text-lg font-bold text-black mt-3">Jugadores</h2>
-          <div class="grid grid-cols-2 gap-4">
-            <%= form.fields_for :player_game_results do |player_fields| %>
-              <% User.all.each do |user| %>
-                <div class="flex items-center text-black text-lg">
-                  <%= form.check_box :user_ids, { multiple: true, class: 'rounded-lg' }, user.id, nil %>
-                  <%= label_tag nil, user.name, class: "ml-2" %>
-                </div>
-              <% end %>
-            <% end %>
           </div>
           <div>
             <%= button_tag 'Crear juego', 

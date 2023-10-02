@@ -2,5 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-// Tournaments
+// Shared between models actions
 @import "shared/index";
+
+// Games
+@import "game/edit";
