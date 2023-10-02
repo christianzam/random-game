@@ -31,6 +31,7 @@ class GamesController < ApplicationController
 
   def update
     if @game.update(game_update_params)
+      @game.update_game_result
       redirect_to game_path(@game), notice: 'Los puntos se ingresaron correctamente'
     else
       flash.now[:alert] = "#{@game.player_game_results.each{|pgr| pgr.errors.full_messages.to_sentence}}"
@@ -62,13 +63,4 @@ class GamesController < ApplicationController
   def load_tournament
     @tournament = Tournament.find_by(id: params[:tournament_id])
   end
-
-  # def assign_place
-  #   @game.player_game_results.order(points: :desc)
-
-  #   ordered_results.each.with_index(1) do |player_game_result, index|
-  #     # player_game_result.update(points: player_game_result.points + 1) if player_game_result.win_by_draw
-  #     player_game_result.update(place: index)
-  #   end
-  # end
 end
