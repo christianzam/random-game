@@ -1,0 +1,24 @@
+<div class="flow-root bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-5">
+  <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+    <% Tournament.all.each do |tournament| %>
+      <%= link_to tournament_path(id: tournament.id), class:'' do %>
+        <li class="p-3 sm:py-4 round-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <div class="flex items-center space-x-4">
+              <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                    <strong>Torneo:</strong> <%= tournament&.name %>
+                  </p>
+                  <p class="text-sm text-gray-500 truncate dark:text-gray-400 my-2">
+                    <strong>Comienzo:</strong><%= tournament&.start_date %>
+                  </p>
+                  <p class="text-sm text-gray-500 truncate dark:text-gray-400 my-2">
+                    <strong>Num de Juegos:</strong> <%= tournament.games.size.zero? ? '0' : tournament.games.size %>
+                  </p>
+              </div>
+            </div>
+        </li>
+      <% end %>
+      <hr>
+    <% end %>
+  </ul>
+</div>

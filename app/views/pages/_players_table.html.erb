@@ -1,0 +1,43 @@
+<table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
+  <thead class="text-xl uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="px-6 py-3 bg-blue-100">Lugar</th>
+      <th scope="col" class="px-6 py-3 bg-blue-100">Puntos</th>
+      <th scope="col" class="px-6 py-3 bg-blue-100">Empates</th>
+      <th scope="col" class="px-6 py-3 bg-blue-100">Juegos</th>
+      <th scope="col" class="px-6 py-3 bg-blue-100">Promedio</th>
+      <th scope="col" class="flex justify-center px-6 py-3 bg-blue-100">Jugador</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each_with_index do |user, index| %>
+      <% bg_color = index.odd? ? 'bg-blue-100' : '' %>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td class="px-6 py-4 <%= bg_color %>">
+            <%= place_and_medal(index) %>
+          </td>
+          <td class="px-6 py-4 <%= bg_color %>">
+            <%= total_points(user) %>
+          </td>
+          <td class="px-6 py-4 <%= bg_color %>">
+            <%= total_draws(user) %>
+          </td>
+          <td class="px-6 py-4 <%= bg_color %>">
+            <%= total_games(user) %>
+          </td>
+          <td class="px-6 py-4 <%= bg_color %>">
+            <div class="mb-1 text-base font-medium dark:text-white"><%= score_avrg(user) %>%</div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+              <%= score_bar_div(user) %>
+            </div>
+          </td>
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white <%= bg_color %>">
+            <div class="flex justify-center">
+              <span class="mr-5"><%= user.full_name %></span>
+              <%= user_profile_pic(user, class_name='h-8 w-8 rounded-full') %>
+            </div>
+          </td>           
+        </tr>
+    <% end %>
+  </tbody>
+</table>

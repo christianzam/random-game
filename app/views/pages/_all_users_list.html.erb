@@ -1,0 +1,21 @@
+<div class="flow-root bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+  <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+    <% User.all.each do |user| %>
+      <%= link_to games_path, class:'' do %>
+        <li class="py-3 sm:py-4 round-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <div class="flex items-center space-x-4">
+              <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                    <%= user.full_name %>
+                  </p>
+                  <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                    <%= user.email %>
+                  </p>
+              </div>
+            </div>
+        </li>
+      <% end %>
+      <hr>
+    <% end %>
+  </ul>
+</div>

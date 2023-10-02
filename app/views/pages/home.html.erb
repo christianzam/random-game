@@ -1,110 +1,63 @@
-<div class="w-1/2 flex items-center justify-center text-3xl text-red-900 py-5"> Resultados Torneo </div>
+<div class="flex justify-center px-5 mb-2">
+  <div class="w-full text-center bg-gray-500 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
 
-<div class="flex items-center justify-center space-x-5 mb-10 px-5">
-  <div class="w-full mt-10">
-    <div class="relative overflow-x-auto rounded-lg">
-      <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3"></th>
-            <th scope="col" class="px-6 py-3">Lugar</th>
-            <th scope="col" class="px-6 py-3">Puntos</th>
-            <th scope="col" class="px-6 py-3">Promedio</th>
-            <th scope="col" class="px-6 py-3">Empates</th>
-            <th scope="col" class="px-6 py-3">Juegos</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @users.each_with_index do |user, index| %>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <div class="flex items-center">
-                    <%= user_profile_pic(user, class_name='h-8 w-8 rounded-full') %>
-                    <span class="ml-2"><%= user.name %></span>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <%= place_and_medal(index) %>
-                </td>
-                <td class="px-6 py-4">
-                  <%= total_points(user) %>
-                </td>
-                <td class="px-6 py-4">
-                  <div class="mb-1 text-base font-medium dark:text-white"><%= score_avrg(user) %>%</div>
-                  <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-                    <%= score_bar_div(user) %>
-                  </div>
-                </td>
-                <td class="px-6 py-4">
-                  <%= total_draws(user) %>
-                </td>
-                <td class="px-6 py-4">
-                  <%= total_games(user) %>
-                </td>    
-              </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div> 
+    <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4">
+      <div class="flex justify-start">
+        <h5 class="mb-2 text-3xl font-bold text-white"> <i class="fas fa-trophy" style="font-size:80px;"></i> </h5>
+      </div>
+      <div class="justify-center">
+        <div>
+          <h5 class="mb-2 text-center text-3xl font-bold text-white">Random games</h5>
+        </div>
+        <div>
+          <p class="text-md font-bold text-white">for all your needs</p>
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <div class="justify-center">
+          <p class="text-md font-bold text-white">
+            Fav player
+          </p>
+        </div>
+      </div>
+    </div>
+
   </div>
+</div>
 
-  <div class="w-full flex items-center justify-center">
-    <%# <div class="flex items-center bg-gray-200 justify-center text-3xl text-red-900 py-5"></div> %>
-    <div id="default-carousel" class="relative w-1/2" data-carousel="slide">  <!-- data-carousel="slide"> -->
-      <!-- Carousel wrapper -->
-      <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-        <!-- Item 1 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <%= image_tag(image_path("AxlChristian.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "tinoco") %>
-        </div>
-        <!-- Item 2 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <%= image_tag(image_path("Axel.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-        </div>
-        <!-- Item 3 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <%= image_tag(image_path("Christian.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-        </div>
-        <!-- Item 4 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <%= image_tag(image_path("Patricio.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-        </div>
-        <!-- Item 5 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <%= image_tag(image_path("Enrique.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-        </div>
-        <!-- Item 6 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <%= image_tag(image_path("Eduardo.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-        </div>
-        <!-- Item 7 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <%= image_tag(image_path("Diego.jpg"), class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "...") %>
-        </div>     
+<div class="flex px-5">
+  <!-- Players list-->
+  <div class="w-full max-w-md p-4 bg-gray-300 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex items-center justify-between">
+      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Todos los jugadores</h5>
+    </div>
+    <%= render 'carousel' %>
+    <%= render 'all_users_list' %>
+  </div>
+  
+  <!-- Stats -->
+  <div class="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mx-2">
+    <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">Estadisticas</h5>
+    <div class="main h-screen border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div class="relative overflow-x-auto rounded-lg">
+        <%= render 'players_table' %>
       </div>
-      <!-- Slider indicators -->
-      <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
-      </div>
-      <!-- Slider controls -->
-      <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-              <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-              <span class="sr-only">Previous</span>
-          </span>
-      </button>
-      <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-              <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-              <span class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"></span>
-          </span>
-      </button>
     </div>
   </div>
+
+  <!-- All games & tournaments-->
+  <div class="w-full max-w-md p-4 bg-gray-300 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex justify-end">
+      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Torneos</h5>
+    </div>
+    <%= render 'all_tournaments_list' %>
+
+    <div class="flex justify-end mt-5">
+      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Juegos</h5>
+    </div>
+    <%= render 'all_games_list' %>
+  </div>
+  
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>

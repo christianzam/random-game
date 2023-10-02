@@ -33,7 +33,7 @@ module Pages
       when 3
         "#{place.ordinalize}🥉"
       else
-        place
+        place.ordinalize
       end
     end
 

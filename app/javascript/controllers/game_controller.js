@@ -2,12 +2,11 @@ import { Controller } from "stimulus"
 import Rails from '@rails/ujs';
 
 export default class extends Controller {
-static targets = ['btnCreate', 'playersDiv', 'addPlayerBtn']
+static targets = ['btnCreate', 'playersDiv', 'addPlayerBtn', 'chevron']
 
   connect() {
     console.log('contected');
-    // console.log(this.playersDivTarget);
-    console.log(this.addPlayerBtnTarget);
+    console.log(this.chevronTarget);
   }
 
   displayGame(event){
@@ -28,7 +27,8 @@ static targets = ['btnCreate', 'playersDiv', 'addPlayerBtn']
   }
 
   displayUserForm(){
-    console.log('>>>>>>>>>>>>>>>>>');
     this.playersDivTarget.classList.toggle("hidden");
+    this.chevronTarget.classList.toggle("fa-chevron-right");
+    this.chevronTarget.classList.toggle("fa-chevron-down");
   }
 }
