@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get 'pages/home', to: 'pages#home'
   get 'pages/draw', to: 'pages#draw'
+  post 'pages/run_draw', to: 'pages#run_draw'
 
   get 'games/new'
   get 'games/create'

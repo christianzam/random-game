@@ -17,9 +17,9 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
 
     if @game.save
-      render json: { tournament: @tournament }, status: :ok
+      render json: { tournament: @game }, status: :ok
     else
-      render json: { error: "#{ @game.errors.full_messages.to_sentence } / #{@game.player_game_results.each{|pgr| pgr.errors.full_messages.to_sentence}}" }
+      render json: { error: "#{ @game.errors.full_messages.to_sentence } / #{@game.player_game_results.each{|pgr| pgr.errors.full_messages.to_sentence}}" }, status: :internal_server_error
     end
   end
 
