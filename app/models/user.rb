@@ -41,4 +41,28 @@ class User < ApplicationRecord
   def full_name
     "#{name} #{last_name}"
   end
+
+  def score_avrg
+    return 0 if self.player_game_results.blank?
+  
+    total_points = self.player_game_results.sum(:points)
+    total_games = self.player_game_results.joins(:game).size
+  
+    return 0 if total_games.zero?
+  
+    (total_points.to_f / total_games) * 10
+  end
+
+  def games_played
+    self.player_game_results.size
+  end
+
+  def ranking
+    user_results = self.player_game_results.joins(:game).sum(:points)
+    # Determine the place based on the total points
+    PlayerGameResult.joins(:game)
+                     .where('points > ?', user_results)
+                     .order(points: :desc)
+                     .count + 1
+  end
 end
